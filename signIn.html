@@ -1,0 +1,65 @@
+<html>
+<link rel="stylesheet" href="css/login.css" />
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css' />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<body background="images/movies.jpg">
+    <div class="container">
+        <div class="card card-container">
+
+            <img id="profile-img" class="profile-img-card" src="images/movies.jpg" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin">
+                <span id="email" class="email"></span>
+				<input type="name" id="name" class="form-control" placeholder="Full Name" required>
+                <input type="username" id="usr" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" id="pwd" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    
+                </div>
+				<input type="hidden" name="signin" value="signin">
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onclick="signin()">Register & Login</button>
+			            </form><!-- /form -->
+            
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+	</body>
+
+<script>
+
+    function signin(){
+
+        var username = document.getElementById('usr').value;
+        var password = document.getElementById('pwd').value;
+        var name = document.getElementById('name').value;
+
+        $.ajax({
+
+            type: "POST",
+            url: "http://52.91.189.69/test.php",
+            headers:{'Content-Type':'application/json'},
+
+//data: '{"name": "abc", "data": "start" }',
+            data: '{"name": "' + name + '","usr": "' + username + '","pwd": "' + password + '"  }',
+
+        }
+
+    /*success: function(data){
+     //alert(data);
+     //window.location('52.91.189.69/page2');
+     window.location.assign('/');
+     },
+     error : function(data){alert(data + ': Try again');}
+
+     });*/
+
+
+
+</script>
+
+</html>
