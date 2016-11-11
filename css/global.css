@@ -1,0 +1,565 @@
+CSS for index page*/
+body{
+	font-family: helvetica,arial,sans-serif;
+	margin-top:0px;
+	background-color: #F6F5F4;
+	color: #4B3754;
+}
+
+.codeRed{
+	font-family: 'Montserrat-Regular';
+	color:white;
+	background-color: #CC0000;
+}
+
+.textRed{
+	font-family: 'Montserrat-Regular';
+	color: #CC0000;
+}
+
+
+
+/*Header section*/
+
+#myAccount{
+	margin-right:5.3%;
+}
+
+/*Header section*/
+
+
+/* Nav section */
+.navSection{
+	padding-bottom: 30px;
+}
+
+.imageHolder{
+	float:left;
+	margin-right: 6%
+}
+
+.navLinks{
+	padding-top: 30px;
+
+}
+
+.navLinks ul li{
+	font-family: 'Montserrat-Regular';
+	background-color: #DEDBD6;
+	padding:15px;
+	padding-left:35px;
+	padding-right:28px;
+}
+
+.navLinks ul li a{
+	font-size:12px;
+	text-decoration: none;
+	color:#4B3754;
+}
+
+.navLinks ul li:hover{
+	background-color: #CC0000;
+}
+
+.navLinks ul li:hover > a{
+	color:white;
+}
+
+/* nav section */
+
+
+
+
+
+
+
+
+
+
+
+
+/*Search section*/
+.searchSection{
+	padding-bottom:30px;
+}
+
+.searchBar .form-control{
+	width:78%;
+	height:30%;
+	float:left;
+}
+
+.searchButton{
+	padding-left: 20px;
+	float:left;
+
+}
+/*Search section*/
+
+
+
+
+
+
+
+
+
+
+/*Slider section*/
+.carousel {
+    position: relative;
+    padding: 0px;
+    width: 800px;
+    height: 480px;
+    margin-bottom: 0px;
+}
+
+/*.sliderHeadline{
+	background-color:#25180F;
+	opacity: 0.8;
+	padding : 20px 0px 20px 15px;
+	font-family: 'Montserrat-Black';
+	font-size: 17px;
+	color:white;
+	position: absolute;
+	z-index:1;
+	float:left;
+}*/
+
+.carousel-caption{
+	background-color:#25180F;
+	opacity: 0.8;
+	font-family: 'Montserrat-Black';
+	font-size: 17px;
+	color:white;
+	left:0px;
+	right:0px;
+	bottom:0px;
+
+}
+
+.item img {
+  max-width:100%;
+  height:auto;
+}
+/*Slider section*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* GIVEAWAY CSS*/
+.giveSection{
+	font-family: 'Montserrat-Black';
+	margin-left:1%;
+}
+
+
+.giveTxt{
+	padding-left: 10px;
+	background-color: #CC0000;
+	font-size: 50px; /*3.0vw;*/
+	color:white;
+}
+
+
+.giveLink:hover{
+	color:white;
+	text-decoration: none
+}
+
+.moreNews{
+	padding: 5%;
+	font-family: 'Montserrat-Regular';
+	background-color: #DEDBD6;
+}
+
+.moreNews span{
+	font-size: 22px ; /*1.2vw;*/
+	color: #CC0000;
+}
+
+.moreNews p{
+	font-size: 17px; /*0.8vw;*/
+	margin-top: 2%;
+	font-family: 'Montserrat-Light';
+}
+
+#moreButton{
+	font-size: 17px;/*0.8vw;*/
+	background-color:  #CC0000;
+}
+/* GIVEAWAY CSS ENDS*/
+
+
+
+/* Streaming section */
+
+.streamSection{
+	margin:40px;
+	margin-top:20px;
+	background-color:#DEDBD6;
+	border-radius: 15px;
+}
+
+.streamLogo{
+	padding-left:40%;
+	padding-bottom: 5%;
+}
+
+.caption{
+	padding-left:25%;
+}
+
+.streamText{
+	padding-top: 10px;
+}
+
+.popularAnchor:hover {
+	text-decoration: none;
+}
+
+/* Streaming Section */
+
+
+/*Services section*/
+.streamImg{
+	padding-top:8%;
+}
+/* Services sectiom */
+
+
+/* Listing section*/
+.listElem{
+	padding-top:12px;
+}
+/* Listing section*/
+
+/* New Arrivals */
+.booksWrapper{
+	margin-top :10px;
+	background-color: #DEDBD6;
+	padding-top:12% ;
+	padding-bottom:13% ;
+	border-radius: 15px;
+	padding-left: 30px;
+	padding-right: 30px;
+
+}
+
+.slideElem{
+	padding : 0px 10px 0px 10px;
+}
+
+.meetstaff{
+	margin-top :10px;
+}
+/* New Arrivals */
+
+
+
+/* Search listing Modal box*/
+.listInfo{
+	padding-left : 10px;
+}
+
+.listElement{
+	margin-top : 10px;
+	padding:20px;
+}
+/*Search listing modal box 
+
+
+/* Login modal */
+.tabActive{
+	background-color: #CC0000;
+    color:white;
+}
+
+.inputElem{
+	margin-top:10px;
+}
+
+.errMsg{
+	color:red;
+}
+/* Login Modal*/
+
+
+
+/* Footer */
+.footer{
+	padding-top : 2%;
+	padding-bottom : 2%;
+	background-color : #CC0000;
+	margin-top : 4%;
+	padding-left:20%;
+	font-family: 'Montserrat-Regular';
+	width:100%;
+	margin-left:0%;
+}
+
+.signature{
+	color: white;
+}
+
+/*Footer */
+
+
+
+
+/* For tablets & smart phones */
+@media (min-width: 360px) and (max-width: 639px) {
+  	body {
+	    padding-left: 20px;
+	    padding-right: 20px;
+	}
+
+	.giveSection{
+     display:none;
+    }
+
+  	.dropdown{
+  		margin-top:-30px;
+  		margin-bottom: 10px;
+  	}
+  
+   .giveSection{
+     display:none;
+    }
+
+    .newArrivalSection{
+    	display:none;
+    }
+
+    .searchButton{
+  	 padding-left:6px;
+  	 margin-top:10px;
+    }
+
+    .carousel{
+    	width:97%;
+    	height:90%;
+    }
+
+
+   .navSection{
+	 padding-bottom: 10px;
+	}
+
+	.imageHolder{
+		float:left;
+		margin-right: 1%
+	}
+
+	.navLinks{
+		float:left;
+		padding-top: 40px;
+
+	}
+
+	.navLinks ul li{
+		font-family: 'Montserrat-Regular';
+		background-color: #DEDBD6;
+		padding:10px;
+		padding-left:5px;
+		padding-right:5px;
+	}
+
+	.streamSection{
+		margin:20px;
+		margin-top:20px;
+		background-color:#DEDBD6;
+		border-radius: 15px;
+	}
+
+	.caption{
+		padding-left:100px;
+	}
+
+	.streamLogo{
+		padding-left:40%;
+		padding-bottom: 5%;
+	}
+
+	.streamImg{
+		padding-left:2%;
+		padding-bottom:10px;
+	}
+
+    .footer{
+		padding-left:5%;
+		margin-right:0px;
+		margin-left:0px;
+	}
+
+	.signature{
+		padding-top : 12px;
+		font-size:14px;
+	}
+}
+
+
+
+/* For smartphones */
+@media (min-width: 640px) and (max-width: 768px) {
+	body {
+	    padding-left: 20px;
+	    padding-right: 20px;
+	}
+
+  	.dropdown{
+  		margin-top:-30px;
+  		margin-bottom: 10px;
+  	}
+  
+   .giveSection{
+     display:none;
+    }
+
+    .searchButton{
+  	 padding-left:6px;
+  	 margin-top:10px;
+    }
+
+    .carousel{
+    	width:97%;
+    }
+
+
+   .navSection{
+	 padding-bottom: 10px;
+	}
+
+	.imageHolder{
+		float:left;
+		margin-right: 1%
+	}
+
+	.navLinks{
+		float:left;
+		padding-top: 40px;
+
+	}
+
+	.navLinks ul li{
+		font-family: 'Montserrat-Regular';
+		background-color: #DEDBD6;
+		padding:10px;
+		padding-left:45px;
+		padding-right:45px;
+	}
+
+	.streamSection{
+		margin:20px;
+		margin-top:20px;
+		background-color:#DEDBD6;
+		border-radius: 15px;
+	}
+
+	.caption{
+		padding-left:232px;
+	}
+
+	.streamLogo{
+		padding-left:40%;
+		padding-bottom: 5%;
+	}
+
+	.streamImg{
+		padding-left:10%;
+		padding-bottom:10px;
+	}
+
+    .footer{
+		padding-left:5%;
+		margin-right:0px;
+		margin-left:0px;
+	}
+
+	.signature{
+		padding-top : 12px;
+		font-size:14px;
+	}
+}
+
+
+/* For smaller displays like laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .giveSection{
+    display:none;
+  }
+
+  .searchButton{
+  	padding-left:6px;
+  	margin-top:10px;
+  }
+
+   .navSection{
+	 padding-bottom: 20px;
+	}
+
+	.imageHolder{
+		float:left;
+		margin-right: 2%
+	}
+
+	.navLinks{
+		padding-top: 40px;
+
+	}
+
+	.navLinks ul li{
+		font-family: 'Montserrat-Regular';
+		background-color: #DEDBD6;
+		padding:10px;
+		padding-left:10px;
+		padding-right:10px;
+	}
+
+	.streamSection{
+		margin:20px;
+		margin-top:20px;
+		background-color:#DEDBD6;
+		border-radius: 15px;
+	}
+
+	.streamLogo{
+		padding-left:40%;
+		padding-bottom: 5%;
+	}
+
+	.booksWrapper{
+		width:120%;
+		margin-top :10px;
+		background-color: #DEDBD6;
+		padding-top:12% ;
+		padding-bottom:12% ;
+		border-radius: 15px;
+		padding-left: 30px;
+		padding-right: 30px;
+    }
+
+    .footer{
+		padding-left:5%;
+	}
+
+}
+
+
+/* For larger displays */
+@media (min-width: 1200px) {
+  .sliderContainer {
+    width: 800; /*1170px*/
+  }
+
+}

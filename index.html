@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Northeastern University Library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="http://library.northeastern.edu/sites/all/themes/nulib/ico/favicon.ico" type="image/vnd.microsoft.icon" />
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!--  <script type="text/javascript" src="js/ajax.js"></script>-->
+
+<!-- Fonts and slider  -->
+<link rel="stylesheet" href="css/example.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<!-- <script src="js/jquery.slides.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>-->
+<link rel="stylesheet" type="text/css" href="js/slick-1.5.9/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="js/slick-1.5.9/slick/slick-theme.css"/>
+
+<!-- Bootstrap  CSS/JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+
+<script>
+var query = null;
+$(document).ready(function(){
+    $("#searchBtn").click(function(){
+        //$("#searchBox").trigger('input')
+        var regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+        var searchQuery =  $.trim($("#searchBox").val());
+        if (regex.test(searchQuery)) {
+            openSearch($.trim(searchQuery));
+        }else{
+            alert("Please enter valid search query, only alphanumeric values are allowed.");
+        }
+    });
+
+    /*Search for autocomplete*/
+    $("#searchBox").on('input', function (){
+        query = null;
+        var val = this.value;
+        var len = val.length;
+        
+        if(len > 2){
+              /*    If selected element is equal to elemnt found in list, get the book  */
+              var dlistOptions = document.getElementById('browsers').childNodes;
+              for (var i = 0; i < dlistOptions.length; i++) {
+                if (dlistOptions[i].value === val) {
+                  console.log("Selected value : " + dlistOptions[i].value);
+                  console.log("Selected id : " + dlistOptions[i].id);
+                  var bookId =  dlistOptions[i].id;
+                  //$('#searchBox').val('');
+                  //$('#browsers').html('');
+                  openDetail(bookId);
+                  break;
+                }
+              }
+
+              /*    Else search for the book */
+              $('#browsers').html('');
+              query = val;
+              //console.log("Query value  " + query);
+              $.getJSON("http://it-ebooks-api.info/v1/search/"+query, function(result){
+                  var books = null;
+                  $.each(result, function(i, elemValue){
+                      //console.log("Value of " + i + " is " +  elemValue);
+                      if( i == "Books"){
+                        books = elemValue;
+                        for (var j=0; j < books.length; j++) {
+                            var objectResponse = books[j];
+                            //console.log("Title of the book " + objectResponse.Title); //console.log("ID of the book " + objectResponse.ID);
+                            $('#browsers').append($('<option>', { value: objectResponse.Title, id: objectResponse.ID}));
+                        }
+                      }
+                  });//end of $each
+              });//end of getJSON
+        }//end of if
+    });//end of searchOn
+    
+
+    $('.loginBtn').click(function(){
+        var username = $("#loginUsername").val();
+        var password = $("#loginPassword").val();
+        if($.trim(username)=='' || $.trim(password)==''){
+          $("#loginErr").text("Please enter valid username and password");
+          $("#loginErr").show();
+        }else{
+          $("#loginErr").hide();
+          if(username == localStorage.username && password == localStorage.password){
+            console.log("Woot username and pass found");
+            sessionStorage.setItem("loginStatus","true");
+              var lastSearch = sessionStorage.lastSearch;
+              $('.closeBtn').trigger('click');
+              if($.trim(lastSearch)!='' && typeof lastSearch != 'undefined'){
+                console.log("Calling reserve chap");
+                openBookReserve(lastSearch);
+              }else{
+                 alert("You are now logged in");
+              }
+          }else{
+            console.log("Jhol, username and pass not found");
+            $("#loginErr").text("Sorry! We couldnt find username/password you entered");
+            $("#loginErr").show();
+          }
+        }
+    });
+
+    $('.signupBtn').click(function(){
+        console.log("Is there anybody out there *comfortabluy numb starts*");
+        var name = $("#signupName").val();
+        var username = $("#signupUsername").val();
+        var password = $("#signupPassword").val();
+        var regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+        if (regex.test(name) && regex.test(username) && ($.trim(password)!='')) {
+            //set username, pass and loginstatus
+            localStorage.setItem("name", name);
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+            sessionStorage.setItem("loginStatus","true");
+
+            $("#signupErr").hide();
+            $('.closeBtn').trigger('click');
+
+            var lastSearch = sessionStorage.lastSearch;
+            if($.trim(lastSearch)!='' && typeof lastSearch != 'undefined'){
+              console.log("Calling reserve chap");
+              openBookReserve(lastSearch);
+            }
+
+        }else{
+            $("#signupErr").show();
+        }
+
+    });
+
+
+    /*Check if user is logged in*/
+    $(document.body).on("click",'.getBook',function(){
+        console.log("Bulawa aaya hain");
+        var status = sessionStorage.loginStatus;
+        var lastSearch = $(this).parent().prev().find('#bookDetailID').text();
+        //console.log("This is the book Id found " + lastSearch + "and the object is " + $(this).parent().prev().find('#bookDetailID').attr("class"));
+        sessionStorage.setItem("lastSearch", lastSearch);
+        $('.getBookClose').trigger('click');
+        $('.listElement').hide();
+        console.log("THink i know the status : " + status);
+        if(status=='true'){
+          //open the booking modal
+          console.log("Calling reserve chap");
+          openBookReserve(lastSearch);
+        }else{
+          //open the login/signup modal
+          $("#loginErr").hide();
+          $("#signupErr").hide();
+          $('#hiddenLoginBtn').trigger('click');
+        }
+    });
+
+
+    $(".reserveBook").click(function(){
+        var selectedBook = $(this).parent().prev().find('#reserveDetailID').text();
+        var day = $("#reserveDay option:selected").val();
+        var month = $("#reserveMonth option:selected").val();
+        var year = $("#reserveYear option:selected").val();
+
+        var fullDate = year + "-" + month + "-" + day;
+        var dateForm =  new Date(fullDate);
+        var now = new Date();
+        $("#reserveErr").hide();
+        if (isNaN(dateForm)){
+            $("#reserveErr").text("Please select a date");
+            $("#reserveErr").show();
+        }else if(dateForm < now) {
+           $("#reserveErr").text("You've entered past date. Please enter valid date ");
+           $("#reserveErr").show();
+        }else{
+          if(localStorage.reserveCount != "1"){
+            localStorage.setItem("reserveBookId", selectedBook);
+            localStorage.setItem("reserveCount", "1");
+            localStorage.setItem("reserveDate", dateForm);
+            $('.reserveBookClose').trigger("click");
+            alert("Book has been reserved. Please collect it from library desk before due date");
+          }else{
+            $("#reserveErr").text("Sorry! You can reserve only one book at a time");
+            $("#reserveErr").show();
+          }
+        }
+
+    })
+})//end of doc ready
+
+
+function openBookReserve(bookId){
+     $.getJSON("http://it-ebooks-api.info/v1/book/"+bookId, function(result){
+        $.each(result, function(i, elemValue){
+            console.log("Value of " + i + " is " +  elemValue);
+            if(i=="Image"){
+                $('#reserveDetail'+i).attr('src', elemValue);
+            }else if(i=="Download"){
+                $('.reserveDetailDownload').attr('href', elemValue);
+            }else{
+                $('#reserveDetail'+i).text(elemValue);
+            }
+        });//end of $each
+    });//end of getJSON   
+   $("#reserveErr").hide();
+   $('#hiddenReserveBtn').trigger('click');
+}
+
+function openDetail(bookId){
+     $.getJSON("http://it-ebooks-api.info/v1/book/"+bookId, function(result){
+        $.each(result, function(i, elemValue){
+            console.log("Value of " + i + " is " +  elemValue);
+            if(i=="Image"){
+                $('#bookDetail'+i).attr('src', elemValue);
+            }else{
+                $('#bookDetail'+i).text(elemValue);
+            }
+        });//end of $each
+    });//end of getJSON   
+   $('#hiddenSearcBtn').trigger('click');
+}
+
+
+function openSearch(query){
+      $.getJSON("http://it-ebooks-api.info/v1/search/"+query, function(result){
+        var books = null;
+        $.each(result, function(i, elemValue){
+            if( i == "Books"){
+                books = elemValue;
+                console.log("Books elem length " + books.length);
+                $('.listAll').html('');
+                if(books.length > 0){
+                    for (var j=0; j < books.length; j++) {
+                        var objectResponse = books[j];
+                          $('.listAll').append(
+                              "<div class='row col-md-12 listElement'><div class='listImg pull-left' > <img src='"+ objectResponse.Image +"' id='listElementImage"+j+"' alt='' width='200' height='250'/></div><div class='listInfo pull-left'><label for='listElementID' class='listElem'>ID</label><p class='form-control-static' name='listElementID' class='bookId' id='bookDetailID'>"+objectResponse.ID+"</p><label for='listElementTitle' class='listElem'>Title</label><p class='form-control-static'> "+objectResponse.Title+" </p><label for='listElementDescription' class='listElem'>Description</label><p class='form-control-static' name='listElementDescription' id='listElementDescription"+j+"'>"+objectResponse.Description+"</p></div><div class='listFooter pull-left'><button type='button' class='btn btn-default getBook' id='listBtn"+j+"'>Get this book</button><button type='button' class='btn btn-default getBookClose' data-dismiss='modal' style='display:none'>Close</button></div></div><div class='clearfix'></div>"
+                          );
+                    }
+                }
+            }else if(i == "Total"){
+                if(elemValue < 1){
+                  $('.listAll').html('');
+                  $('.listAll').append("<div class='row col-md-12 listElement'><p> No Results Found. </p></div>");
+                }
+            }
+        });//end of $each
+    });//end of getJSON
+    $('#hiddenListingBtn').trigger('click');
+}
+
+
+function openAudio(){
+     $('#hiddenAudioBtn').trigger('click');
+}
+
+
+function openVideo(){
+     $('#hiddenVideoBtn').trigger('click');
+}
+
+
+
+
+function openBorrow(bookId){
+     $.getJSON("http://it-ebooks-api.info/v1/book/"+bookId, function(result){
+        $.each(result, function(i, elemValue){
+            console.log("Value of " + i + " is " +  elemValue);
+            if(i=="Image"){
+                $('#borrowDetail'+i).attr('src', elemValue);
+            }else{
+                $('#borrowDetail'+i).text(elemValue);
+            }
+        });//end of $each
+    });//end of getJSON   
+   $('#hiddenBorrowBtn').trigger('click');
+}
+
+function getUserDetails(){
+  var val = localStorage.name;
+  var username = localStorage.username;
+  var loginStatus = sessionStorage.loginStatus;
+  if(username && val && (loginStatus=='true')){
+      var name = val.charAt(0).toUpperCase() + val.substr(1); 
+      $('#userDetailName').text(name);
+      $('#userDetailUsername').text(username);
+      $('#hiddenUserBtn').trigger('click');
+  }else{
+      alert("User profile not found");
+  }
+  
+}
+
+function getBorrowedItems(){
+   var bookId = localStorage.reserveBookId;
+   var reserveCount = localStorage.reserveCount;
+   var reserveDate =  new Date(localStorage.reserveDate);
+   var loginStatus = sessionStorage.loginStatus;
+   console.log("Date obj " + reserveDate);
+   if(bookId && reserveCount && reserveDate && (loginStatus=='true')){
+        var fromString = (reserveDate.getMonth()+1) + "-" + reserveDate.getDate() + "-" + reserveDate.getFullYear();
+        var futureDate = new Date();
+        futureDate.setDate(reserveDate.getDate() + 7)
+        var toString =  (futureDate.getMonth()+1) + '-' + futureDate.getDate() +'-'+ futureDate.getFullYear();
+        $('#borrowDetailFrom').text(fromString);
+        $('#borrowDetailTo').text(toString);
+        openBorrow(bookId);
+   }else{
+     alert("No books have been borrowed");
+   }
+}
+
+function logout(){
+     sessionStorage.removeItem("loginStatus");
+     alert("You have successfully logged");
+}
+</script>
+</head>
+<body>
+
+<!-- Container starts here -->
+<div class="container">
+
+      <!-- Header starts here -->
+      <header class="dropdown cold-md-12 pull-right" id="myAccount">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-user" ></span>
+            My Account
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="javascript:getUserDetails()">User Details</a></li>
+            <li><a href="javascript:getBorrowedItems()">View Borrowed Items</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="javascript:logout()">Logout</a></li>
+          </ul>
+      </header>
+      <!-- Header ends here -->
+
+      <!-- Nav starts here -->
+      <div class="row col-md-12 navSection">
+          <div class="imageHolder">
+                <a href="javascript:;"><img src="images/logo_bg.png" /></a>
+          </div>
+          <div class="navLinks">
+              <ul class="list-inline">
+                  <li><a href="javascript:;">HOME</a></li>
+                  <li><a href="#stream">STREAM & DOWNLOAD</a></li>
+                  <li><a href="#services">SERVICES</a></li>
+                  <li><a href="#arrivalHeadline">NEW ARRIVALS</a></li>
+              </ul>
+          </div>
+      </div>
+      <!-- Nav Ends here -->
+
+
+      <!-- Search starts here -->
+      <div class="row col-md-12 searchSection">
+            <div class="searchBar  input-group-lg">
+                   <input list="browsers" name="browser" id="searchBox" class="form-control"  placeholder="Search books, articles, catalogs etc (Enter 3 or more chars for suggestions)">
+                   <datalist id="browsers">
+
+                  </datalist>
+            </div>
+            <div class="searchButton btn-group-lg">
+                <button type="submit" id="searchBtn" class="btn btn-default codeRed"><span class="glyphicon glyphicon-search" ></span> Start Searching </button>
+                <input type="hidden"  id="hiddenSearcBtn" data-toggle="modal" data-target="#bookDetailModal" />
+                <input type="hidden"  id="hiddenAudioBtn" data-toggle="modal" data-target="#audioDetailModal" />
+                <input type="hidden"  id="hiddenVideoBtn" data-toggle="modal" data-target="#videoDetailModal" />
+                <input type="hidden"  id="hiddenListingBtn" data-toggle="modal" data-target="#bookListingModal" />
+                <input type="hidden"  id="hiddenLoginBtn" data-toggle="modal" data-target="#loginModal" />
+                <input type="hidden"  id="hiddenReserveBtn" data-toggle="modal" data-target="#reserveModal" />
+                <input type="hidden"  id="hiddenUserBtn" data-toggle="modal" data-target="#userDetailModal" />
+                <input type="hidden"  id="hiddenBorrowBtn" data-toggle="modal" data-target="#borrowDetailModal" />
+            </div>
+      </div>
+      <!-- Search Ends here -->
+
+
+      <!-- TEMP SLIDER -->
+        <div id="myCarousel" class="carousel slide col-md-6" data-ride="carousel" data-interval="4000">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              
+              <div class="item active">
+                <img src="images/slide1.jpg" class="img-responsive" alt="Chania">
+                <div class="carousel-caption">
+                  <h3>Welcome to Snell Library at Northeastern</h3>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/slide2.jpg" class="img-responsive" alt="Chania">
+                <div class="carousel-caption">
+                  <h3>Choose from our highly diversified catalog</h3>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/slide6.jpg" class="img-responsive" alt="Flower">
+                <div class="carousel-caption">
+                  <h3>Reserve a group study (CoLab) room</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+      </div>
+      <!-- TEMP slider -->
+
+
+      <!-- SLIDER STARTS HERE 
+      <div class="row col-md-9 sliderContainer">
+        <div id="slides">
+          <img src="images/slide1.jpg" alt="Library Bookshelf">
+          <img src="images/slide2.jpg" alt="Best of 2015">
+          <img src="images/slide3.jpg" alt="Audio Books">
+          <img src="images/slide4.jpg" alt="Library Space">
+          <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
+          <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
+        </div>
+        <p class="sliderHeadline">Welcome to Snell Library</p>
+      </div>-->
+
+      <div class="row col-lg-3 col-md-1 giveSection"> 
+          <a href="http://library.northeastern.edu/about/giving" target="_blank" class="giveLink">
+            <div class="giveTxt"> 
+              <span> Give To Your Library</span>
+            </div>
+          </a>
+          <div class="moreNews">
+              <span> Be the first to know </span>
+              <p> From our Meet the Author series, to panel discussions on topics in the zeitgeist, explore ways to join the conversation at Snell Library! </p>
+              <a href="http://library.northeastern.edu/news-events/library-news" id="moreButton" class="btn btn-info btn-sm" target="_blank">More library news</a>
+              <div class="clear"></div>
+           </div>
+      </div>
+      <!-- SLIDER ENDS HERE -->
+
+      <div class="embedded-chat"></div>
+
+      <!-- Stream starts here -->
+          <div id="stream" class="row col-md-12 streamHeadline">
+                  <h2 class="textRed"> Stream & Download </h2>
+                  <span>Stream and download ebooks, audiobooks, videos and magazines below.</span>
+          </div>
+
+          <div class="row col-md-3 streamSection">
+                <a class="popularAnchor" href="javascript:openSearch('popular');">
+                    <div class="streamLogo">
+                       <h2 class="textRed"> <span class="glyphicon glyphicon-book" ></span></h2>          
+                    </div>
+                    <span class="textRed caption">E-Books & more</span>
+                    <p class="streamText">NU staff and students may read e-books anywhere, anytime.</p>
+                </a>
+          </div>
+
+           <div class="row col-md-3 streamSection">
+                <a class="popularAnchor"  href="javascript:openAudio();">
+                    <div class="streamLogo">
+                       <h2 class="textRed"> <span class="glyphicon glyphicon-headphones" ></span></h2>
+                    </div>
+                    <span class="textRed caption">Audio Books</span>
+                    <p class="streamText">You can also download podcast or audio books from our catalog</p>
+                </a>
+          </div>
+
+           <div class="row col-md-3 streamSection">
+                <a class="popularAnchor" href="javascript:openVideo();"> 
+                    <div class="streamLogo">
+                      <h2 class="textRed"> <span class="glyphicon glyphicon-play-circle" ></span></h2>
+                    </div>
+                    <span class="textRed caption">Videos & Clips</span>
+                    <p class="streamText"> Check lectures, tutorial and instructional videos here.</p>
+                </a>
+          </div>
+      <!-- Stream Ends here -->
+
+
+      <!-- Services starts here -->
+          <div id="services" class="row col-md-12 streamHeadline">
+                  <h2 class="textRed"> Services </h2>
+                  <span>Borrow your favorite books, get started with group study and locate printing stations below.</span>
+          </div>
+
+          <div class="row col-md-3 streamSection">
+                <a class="popularAnchor" href="javascript:openSearch('trending');">
+                    <div class="streamImg">
+                       <img src="images/service4.JPG" width="375" height="200" />        
+                    </div>
+                    <span class="textRed caption">Borrow & Renew</span>
+                    <p class="streamText">Look up the resource you need in Scholar OneSearch, our online catalog.</p>
+                </a>
+          </div>
+
+           <div class="row col-md-3 streamSection">
+                <a class="popularAnchor" href="http://library.northeastern.edu/services/rooms-spaces" target="_blank">
+                    <div class="streamImg">
+                       <img src="images/service5.jpeg" />
+                    </div>
+                    <span class="textRed caption">Rooms & Spaces</span>
+                    <p class="streamText">Snell Library's group study rooms are available for group work. </p>
+                </a>
+          </div>
+
+           <div class="row col-md-3 streamSection">
+                <a class="popularAnchor" href="http://library.northeastern.edu/services/scanners-and-printers"  target="_blank"> 
+                    <div class="streamImg">
+                      <img src="images/service2.jpg" />
+                    </div>
+                    <span class="textRed caption">Printing Studio</span>
+                    <p class="streamText"> Printing Stations are located in the Infocommons labs/first floor of Library.</p>
+                </a>
+          </div>
+      <!-- Services Ends here -->
+
+
+      <!-- New arrival starts here -->
+      <div class="newArrivalSection">
+        <div class="row col-md-12 streamHeadline" id="arrivalHeadline">
+                <h2 class="textRed"> December New Arrivals </h2>
+                <span>Check what's new this month.</span>
+        </div>
+        
+        <div class="row col-md-9 newArrivals">
+            <div class="booksWrapper">
+                <div id="bookSlides">
+                    <a class="slideElem" href="javascript: openDetail(3875207800)" ><img src="images/book17.jpg" alt="Library Space"></a>
+                    <a class="slideElem" href="javascript: openDetail(975715417)" ><img src="images/book18.jpg" alt="Library Space"></a>
+                    <a class="slideElem" href="javascript: openDetail(2870357052)"><img src="images/book20.jpg" alt="Library Space"></a>
+                    <a class="slideElem" href="javascript: openDetail(1295104013)" ><img src="images/book22.jpg" alt="Library Space"></a>
+                    <a class="slideElem" href="javascript: openDetail(1456332885)" ><img src="images/book23.jpg" alt="Library Space"></a>
+                    <a class="slideElem" href="javascript: openDetail(1081583253)" ><img src="images/book24.jpg" alt="Library Space"></a>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row col-md-3 meetstaff giveSection"> 
+           <div class="giveTxt"> 
+              <img src="images/staff1.jpg" />
+           </div>
+           <div class="moreNews">
+              <span> Meet George</span>
+              <p> Learn more about George and other library staff. </p>
+              <a href="http://library.northeastern.edu/about/library-staff-directory" id="moreButton" target="_blank" class="btn btn-info btn-sm">Meet our Staff > </a>
+              <div class="clear"></div>
+           </div>
+      </div><!-- New arrival ends here -->
+
+
+
+      <!-- Book Listing Modal -->
+      <div id="bookListingModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Search Results</h4>
+                    </div>
+
+                    <div class="modal-body listAll">
+                            
+                    </div>
+
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-default" >Get this Book</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    </div>
+              </div>
+          </div>
+      </div><!-- Book Listing Modal ends here -->
+
+
+
+
+
+
+
+
+
+      <!-- Book Detail Modal -->
+      <div id="bookDetailModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Search Results</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <form>
+                            <div class="form-group" >
+                                  <img src="" id="bookDetailImage" alt="" width="200" height="250"/>
+                            </div>
+                            <div class="form-group" >
+                                  <label for="bookDetailID">ID</label>
+                                  <p class="form-control-static" name="bookDetailID" class="bookId" id="bookDetailID"></p>
+                                  <!--  <input type="hidden" class="form-control-static" name="bookDetailID" class="bookId" id="bookDetailID" />-->
+                            </div>
+                            <div class="form-group">
+                                  
+                                  <label for="bookDetailTitle" >Title</label>
+                                  <p class="form-control-static" name="bookDetailTitle" id="bookDetailTitle"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="bookDetailSubTitle" >SubTitle</label>
+                                  <p class="form-control-static" name="bookDetailSubTitle" id="bookDetailSubTitle"></p>
+                            </div>
+                            <!--  <div class="form-group">
+                                  <label for="bookDetailDescription" >Description</label>
+                                  <p class="form-control-static" name="bookDetailDescription" id="bookDetailDescription"></p>
+                            </div>-->
+                            <div class="form-group">
+                                  <label for="bookDetailAuthor" >Author</label>
+                                  <p class="form-control-static" name="bookDetailAuthor" id="bookDetailAuthor"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="bookDetailYear" >Year</label>
+                                  <p class="form-control-static" name="bookDetailYear" id="bookDetailYear"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="bookDetailPublisher" >Publisher</label>
+                                  <p class="form-control-static" name="bookDetailPublisher" id="bookDetailPublisher"></p>
+                            </div>
+                             <div class="form-group" style="display:none">
+                                  <label for="bookDetailDownload" >Download</label>
+                                  <p class="form-control-static" name="bookDetailDownload" id="bookDetailDownload"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="bookDetailISBN">ISBN</label>
+                                  <p class="form-control-static" name="bookDetailISBN" id="bookDetailISBN">9781430238317</p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default getBook">Get this Book</button>
+                        <button type="button" class="btn btn-default getBookClose" data-dismiss="modal">Close</button>
+                    </div>
+              </div>
+          </div>
+      </div><!-- Book Detail Modal ends here -->
+
+
+
+
+
+      <!--      Reserve a book modal         -->
+      <div id="reserveModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Reserve your copy</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <form>
+                            <div class="form-group" >
+                                  <img src="" id="reserveDetailImage" alt="" width="200" height="250"/>
+                            </div>
+                            <div class="form-group" style="display:none">
+                                  <label for="reserveDetailID">ID</label>
+                                  <p class="form-control-static" name="reserveDetailID" class="bookId" id="reserveDetailID"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="reserveDetailTitle" >Title</label>
+                                  <p class="form-control-static" name="reserveDetailTitle" id="reserveDetailTitle"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="reserveDetailAuthor" >Author</label>
+                                  <p class="form-control-static" name="reserveDetailAuthor" id="reserveDetailAuthor"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="reserveDetailPublisher" >Publisher</label>
+                                  <p class="form-control-static" name="reserveDetailPublisher" id="reserveDetailPublisher"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="reserveDetailDownload">Download E-Book</label> <br />
+                                  <a href="javascript:;" id="moreButton" name="reserveDetailDownload" class="btn btn-info btn-sm inputElem reserveDetailDownload">Download</a>
+                            </div>
+
+                             <label for="reserveDiv"> Or Reserve a physical copy</label> 
+                            <div class="form-group" name="reserveDiv">
+                                   <div class="form-group">
+                                         <label for="reserveDate">From</label>
+                                         <span id="reserveDate">
+                                              <select id="reserveMonth" name="reserveMonth">
+                                                <option> - Month - </option>
+                                                <option value="01">January</option>
+                                                <option value="02">Febuary</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                              </select>
+
+                                              <select id="reserveDay" name="reserveDay">
+                                                <option> - Day - </option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                                <option value="31">31</option>
+                                              </select>
+
+                                              <select id="reserveYear" name="reserveYear">
+                                                <option> - Year - </option>
+                                                <option value="2015">2015</option>
+                                                <option value="2016">2016</option>
+                                              </select>
+                                        </span>
+                                  </div>
+                                  <p class="inputElem errMsg" id="reserveErr" style="display:none"> </p>
+                            </div>
+
+                            <p class="inputElem errMsg">**You'll be automatically assigned 1 week return date from start date</p>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default reserveBook">Reserve Book</button>
+                        <button type="button" class="btn btn-default reserveBookClose" data-dismiss="modal">Close</button>
+                    </div>
+              </div>
+          </div>
+      </div><!-- Reserve a book Modal ends here -->
+
+
+      <!--      Login Modal          -->
+      <div id="loginModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Sign In</h4>
+                    </div>
+
+                    <div class="modal-body navLinks">
+                        <!-- class="nav nav-tabs" -->
+                          <ul class="list-inline" >
+                            <li class="active tabActive"><a data-toggle="tab" href="#login">Login</a></li>
+                            <li><a data-toggle="tab" href="#signup">Signup</a></li>
+                          </ul>
+
+
+                          <div class="tab-content">
+                            <!--      Login button   -->
+                            <div id="login" class="tab-pane fade in active">
+                                <label for="loginUsername" class="inputElem">Username : </label>
+                                <input type="text" class="form-control inputElem"  name="loginUsername" id="loginUsername" placeholder="Enter your username">
+
+
+                                <label for="loginPassword" class="inputElem">Password : </label>
+                                <input type="password" class="form-control inputElem"  name="loginPassword" id="loginPassword" placeholder="Enter your password">
+                                <p class="inputElem errMsg" id="loginErr" style="display:none"> </p>
+
+                                <button type="button" id="moreButton" class="btn btn-info btn-sm inputElem loginBtn">Login</button>
+
+                            </div>
+
+                            <!--      Signup button   -->
+                            <div id="signup" class="tab-pane fade">
+                                <label for="signupName" class="inputElem">Name : </label>
+                                <input type="text" class="form-control inputElem"  name="signupName" id="signupName" placeholder="Enter your name">
+
+                                <label for="signupUsername" class="inputElem">Username : </label>
+                                <input type="text" class="form-control inputElem"  name="signupUsername" id="signupUsername" placeholder="Enter your username">
+
+
+                                <label for="signupPassword" class="inputElem">Password : </label>
+                                <input type="password" class="form-control inputElem"  name="signupPassword" id="signupPassword" placeholder="Enter your password">
+                                <p class="inputElem errMsg" id="signupErr" style="display:none"> Sorry! Invalid entry.Please enter alphanumeric values. </p>
+
+                                <button type="button" id="moreButton" class="btn btn-info btn-sm inputElem signupBtn">Signup</button>
+                            </div>
+                          </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    </div>
+              </div>
+          </div>
+      </div><!-- Login Modal ends here -->
+
+
+
+
+
+      <!-- Audio Book Modal -->
+      <div id="audioDetailModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Top Audio Books</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <form>
+                            <div class="form-group">
+                                 <label for="audio1">Can Animals be Moral?</label>
+                                 <iframe width="100%" height="300" scrolling="no" name="audio1" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/235805984&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+                            </div>
+                            <div class="form-group">
+                                  <label for="audio2">Remembering John Lennon</label>
+                                  <iframe width="100%" height="300" scrolling="no" frameborder="no" name="audio2" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/236645863&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+                            </div>
+                            <div class="form-group">
+                                  <label for="audio3">Digital Patronage</label>
+                                  <iframe width="100%" height="300" scrolling="no" frameborder="no" name="audio3" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/237137122&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--  <button type="button" class="btn btn-default" > View More</button>-->
+                        <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    </div>
+              </div>
+          </div>
+      </div><!--  Audio Book Modal ends here -->
+
+
+
+      <!-- Video Book Modal -->
+      <div id="videoDetailModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Top Videos & Tutorials</h4>
+                    </div>
+
+                    <div class="modal-body">
+                         <form>
+                            <div class="form-group">
+                                 <label for="audio1">David Warner Lectures at Northeastern University </label>
+                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/2fk4HnjMDIA" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="form-group">
+                                  <label for="audio2">Noam Chomsky - Hall Forum Series</label>
+                                  <iframe width="560" height="315" src="https://www.youtube.com/embed/AcX7ljI-9n0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="form-group">
+                                  <label for="audio3">Norman Finkelstein on Conflicts</label>
+                                  <iframe width="560" height="315" src="https://www.youtube.com/embed/HbOQrOovobE" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--  <button type="button" class="btn btn-default" > View More</button>-->
+                        <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    </div>
+              </div>
+          </div>
+      </div><!--  Video Book Modal ends here -->
+
+
+
+      <!-- User Details Modal -->
+      <div id="userDetailModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">User Details</h4>
+                    </div>
+
+                    <div class="modal-body" >
+                         <form>
+                            <div class="form-group" >
+                                  <img src="images/profile.jpg" id="userDetailImage" alt="" width="200" height="250"/>
+                            </div>
+                            <div class="form-group">
+                                  <label for="userDetailName">Name</label>
+                                  <p class="form-control-static" name="userDetailName" id="userDetailName"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="userDetailUsername">Username</label>
+                                  <p class="form-control-static" name="userDetailUsername" id="userDetailUsername"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="userDetailDesignation">Designation</label>
+                                  <p class="form-control-static" name="userDetailDesignation" id="userDetailDesignation"> Student</p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="userDetailStatus">Status</label>
+                                  <p class="form-control-static" name="userDetailStatus" id="userDetailStatus">Active</p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--  <button type="button" class="btn btn-default" > View More</button>-->
+                        <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">Close</button>
+                    </div>
+
+              </div>
+          </div>
+      </div><!--  User Details Modal ends here -->
+
+      <!-- Borrowed items list Modal -->
+      <div id="borrowDetailModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">List of Borrowed Items</h4>
+                    </div>
+
+                    <div class="modal-body borrowList">
+                            <div class="form-group" >
+                                  <img src="" id="borrowDetailImage" alt="" width="200" height="250"/>
+                            </div>
+                            <div class="form-group" style="display:none">
+                                  <label for="borrowDetailID">ID</label>
+                                  <p class="form-control-static" name="borrowDetailID" class="bookId" id="borrowDetailID"></p>
+                            </div>
+                            <div class="form-group">
+                                  <label for="borrowDetailTitle" >Title</label>
+                                  <p class="form-control-static" name="borrowDetailTitle" id="borrowDetailTitle"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="borrowDetailFrom" >Borrowed From</label>
+                                  <p class="form-control-static" name="borrowDetailFrom" id="borrowDetailFrom"></p>
+                            </div>
+                             <div class="form-group">
+                                  <label for="borrowDetailTo" >Borrowed Untill</label>
+                                  <p class="form-control-static" name="borrowDetailTo" id="borrowDetailTo"></p>
+                            </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-default" >Get this Book</button>-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                    </div>
+              </div>
+          </div>
+      </div><!-- Borrowed items list Modal ends here -->
+
+
+  </div> <!-- COntainer ends here -->
+
+
+
+  <footer class="row col-md-12 footer">
+    <div class="row col-md-6">
+            <a href="javascript:;"><img src="images/logo_footer.png" /></a>
+    </div>
+    <div class="row col-md-6">
+           <p class="signature">360 Huntington Ave., Boston, Massachusetts 02115 <br/>
+            Copyright 2014 Northeastern University</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="js/slick-1.5.9/slick/slick.min.js"></script>
+  <script>
+      $(function() {
+        /*$('#slides').slidesjs({
+          width: 800,
+          height: 450,
+          navigation: false,
+          play:{
+            auto : true,
+            effect : "fade",
+            interval : 5000,
+          }
+        });*/
+
+
+        $('#bookSlides').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode:true,
+            centerPadding :'140px',
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+
+      });
+  </script>
+
+
+
+</body>
+</html>
