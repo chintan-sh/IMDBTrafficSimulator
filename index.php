@@ -29,21 +29,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
 	<div class="container_wrap">
 		<div class="header_top">
-		    <div class="col-sm-3 logo"><a href="index.html"><img src="images/logo.png" alt=""/></a></div>
+		    <div class="col-sm-3 logo"><a href="index.php"><img src="images/logo.png" alt=""/></a></div>
 		    <div class="col-sm-6 nav">
 			  <ul>
-				 <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a href="movie.html"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="movie"><a href="movie.html"> </a> </span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="video"><a href="movie.html"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="game"><a href="movie.html"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="tv"><a href="movie.html"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="more"><a href="movie.html"> </a></span></li>
+				 <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a href="movie.php"> </a></span></li>
+				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="movie"><a href="movie.php"> </a> </span></li>
+				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="video"><a href="movie.php"> </a></span></li>
+				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="game"><a href="movie.php"> </a></span></li>
+				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="tv"><a href="movie.php"> </a></span></li>
+				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="more"><a href="movie.php"> </a></span></li>
 			 </ul>
 			</div>
 			<div class="col-sm-3 header_right">
 			   <ul class="header_right_box">
 				 <li><img src="images/p1.png" alt=""/></li>
-				 <li><p><a href="login.html">Carol Varois</a></p></li>
+				 <li><p><a href="login.php">Carol Varois</a></p></li>
 				 <li class="last"><i class="edit"> </i></li>
 				 <div class="clearfix"> </div>
 			   </ul>
@@ -101,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="box_2">
 			<div class="col-md-5 grid_3">
 			  <div class="row_1">
-			  <div class="col-md-6 grid_4"><a href="single.html">
+			  <div class="col-md-6 grid_4"><a href="single.php">
 				  <div class="grid_2">
 					<img src="images/pic1.jpg" class="img-responsive" alt=""/>
 					<div class="caption1">
@@ -133,18 +133,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    			<li>Release Date : &nbsp;<span class="m_4">Mar 15, 2015</span> </li>
 			    			<div class="clearfix"> </div>
 			    		</ul>
-			    		<div class="m_5"><a href="single.html"><img src="images/pic3.jpg" class="img-responsive" alt=""/></a></div>
+			    		<div class="m_5"><a href="single.php"><img src="images/pic3.jpg" class="img-responsive" alt=""/></a></div>
 				   </div>
 			 </div>
 			   <div class="clearfix"> </div>
 			   </div>
 			   <div class="row_2">
-			   	<a href="single.html"><img src="images/pic4.jpg" class="img-responsive" alt=""/></a>
+			   	<a href="single.php"><img src="images/pic4.jpg" class="img-responsive" alt=""/></a>
 			   </div>
 			</div>
 			<div class="col-md-5 content_right">
 			 <div class="row_3">
-			  <div class="col-md-6 content_right-box"><a href="single.html">
+			  <div class="col-md-6 content_right-box"><a href="single.php">
 				<div class="grid_2">
 				<img src="images/pic6.jpg" class="img-responsive" alt=""/>
 				<div class="caption1">
@@ -156,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			    </div>
 			   </a></div>
-			   <div class="col-md-6 grid_5"><a href="single.html">
+			   <div class="col-md-6 grid_5"><a href="single.php">
 				<div class="grid_2">
 				<img src="images/pic7.jpg" class="img-responsive" alt=""/>
 				<div class="caption1">
@@ -186,13 +186,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    		
 				   </div>
 			   </div>
-			   <div class="col-md-6 m_6"><a href="single.html">
+			   <div class="col-md-6 m_6"><a href="single.php">
 				  <img src="images/pic8.jpg" class="img-responsive" alt=""/>
 			   </a></div>
 			  </div>
 			</div>
 			<div class="col-md-2 grid_6">
-				<div class="m_7"><a href="single.html"><img src="images/pic9.jpg" class="img-responsive" alt=""/></a></div>
+				<div class="m_7"><a href="single.php"><img src="images/pic9.jpg" class="img-responsive" alt=""/></a></div>
 				<div class="caption1">
 						<ul class="list_5">
 				    		<li><i class="icon5"> </i><p>3,548</p></li>
@@ -209,7 +209,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			    			<li>Release : &nbsp;<span class="m_4">Mar 15, 2015</span> </li>
 			    			<div class="clearfix"> </div>
 			    		</ul>
-			    		<div class="m_8"><a href="single.html"><img src="images/pic10.jpg" class="img-responsive" alt=""/></a></div>
+			    		<div class="m_8"><a href="single.php"><img src="images/pic10.jpg" class="img-responsive" alt=""/></a></div>
 			    </div>
 			</div>
 			<div class="clearfix"> </div>
