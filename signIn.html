@@ -23,7 +23,7 @@
                     
                 </div>
 				<input type="hidden" name="signin" value="signin">
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onclick="signin()">Register & Login</button>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" onclick="register()">Register & Login</button>
 			            </form><!-- /form -->
             
         </div><!-- /card-container -->
@@ -32,31 +32,27 @@
 
 <script>
 
-    function signin(){
+    function register(){
 
         var username = document.getElementById('usr').value;
         var password = document.getElementById('pwd').value;
         var name = document.getElementById('name').value;
-
         $.ajax({
+          method: "POST",
+          url: "/services/register.php",
+          data: {
+                  name: name,
+                  username: username,
+                  password: password
+          }
+        })
+          .done(function( msg ) {
+            alert( "Data Saved: " + msg );
+          }).fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+        });
 
-            type: "POST",
-            url: "http://52.91.189.69/test.php",
-            headers:{'Content-Type':'application/json'},
-
-//data: '{"name": "abc", "data": "start" }',
-            data: '{"name": "' + name + '","usr": "' + username + '","pwd": "' + password + '"  }',
-
-        }
-
-    /*success: function(data){
-     //alert(data);
-     //window.location('52.91.189.69/page2');
-     window.location.assign('/');
-     },
-     error : function(data){alert(data + ': Try again');}
-
-     });*/
+}
 
 
 
