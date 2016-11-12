@@ -6,5 +6,7 @@
  * Time: 11:00 PM
  */
 
+$PHYSICAL_PATH = "/var/www/mdb/"
+
 
 ?>

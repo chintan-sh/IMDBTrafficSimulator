@@ -1,12 +1,9 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: chintan
- * Date: 11/10/16
- * Time: 11:15 PM
+ * Date: 11/12/16
+ * Time: 5:07 PM
  */
-class UserDAO
-{
 
-}
+?>

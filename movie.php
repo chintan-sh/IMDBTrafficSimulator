@@ -1,9 +1,4 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<?php include_once "/var/www/mdb/includes/common/constants.php"; ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -45,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="clearfix"> </div>
 	      </div>
 	      <div class="content">
-	   	   <h2 class="m_3">Now in the Movie</h1>
+	   	   <h1 class="m_3">Now in the Movie</h1>
       	       <div class="movie_top">
       	         <div class="col-md-9 movie_box">
                         <!-- Movie variant with time -->
@@ -241,7 +236,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		               </div> 
                       <div class="clearfix"> </div>
                   </div>
-                  <h1 class="recent">Recently Viewed</h3>
+                  <h3 class="recent">Recently Viewed</h3>
                    <ul id="flexiselDemo3">
 						<li><img src="images/1.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Syenergy 2mm</a><p>22.10.2014 | 14:40</p></div></li>
 						<li><img src="images/2.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Surf Yoke</a><p>22.01.2015 | 14:40</p></div></li>
@@ -314,57 +309,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  </div>
 </div>
 </div>
-<div class="container"> 
- <footer id="footer">
- 	<div id="footer-3d">
-		<div class="gp-container">
-			<span class="first-widget-bend"></span>
-		</div>		
-	</div>
-    <div id="footer-widgets" class="gp-footer-larger-first-col">
-		<div class="gp-container">
-            <div class="footer-widget footer-1">
-            	<div class="wpb_wrapper">
-					<img src="images/f_logo.png" alt=""/>
-				</div> 
-	          <br>
-	          <p>It is a long established fact that a reader will be distracted by the readable content of a page.</p>
-			  <p class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered.</p>
-			 </div>
-			 <div class="footer_box">
-			  <div class="col_1_of_3 span_1_of_3">
-					<h3>Categories</h3>
-					<ul class="first">
-						<li><a href="#">Dance</a></li>
-						<li><a href="#">History</a></li>
-						<li><a href="#">Specials</a></li>
-					</ul>
-		     </div>
-		     <div class="col_1_of_3 span_1_of_3">
-					<h3>Information</h3>
-					<ul class="first">
-						<li><a href="#">New products</a></li>
-						<li><a href="#">top sellers</a></li>
-						<li><a href="#">Specials</a></li>
-					</ul>
-		     </div>
-		     <div class="col_1_of_3 span_1_of_3">
-					<h3>Follow Us</h3>
-					<ul class="first">
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Twitter</a></li>
-						<li><a href="#">Youtube</a></li>
-					</ul>
-					<div class="copy">
-				      <p>&copy; 2015 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
-			        </div>
-		     </div>
-		    <div class="clearfix"> </div>
-	        </div>
-	        <div class="clearfix"> </div>
-		</div>
-	</div>
-  </footer>
-</div>		
+<!-- Footer Starts -->
+<?php include_once $PHYSICAL_PATH . "includes/common/footer.php"; ?>
+<!-- Footer Ends -->
 </body>
 </html>
