@@ -1,3 +1,4 @@
+<!--FOOTER FILE-->
 <div class="container">
  <footer id="footer">
  	<div id="footer-3d">
