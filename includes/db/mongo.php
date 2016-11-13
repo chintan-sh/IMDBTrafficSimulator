@@ -7,12 +7,12 @@
  * Time: 11:57 PM
  */
 include '/var/www/html/mdb/vendor/autoload.php';
-class Mongo
+class Mongo1
 {
     public function getMongoConnection(){
         //$mongoConnection = new MongoDB\Driver\Manager("mongodb://35.161.183.188:27017");
         $mongoConnection = new MongoDB\Client("mongodb://35.161.183.188:27017");
-        $db = $mongoConnection->newdb;
+        $db = $mongoConnection->selectDatabase('test');
         return $db;
     }
 }
