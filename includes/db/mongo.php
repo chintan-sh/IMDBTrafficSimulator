@@ -9,8 +9,7 @@
 class Mongo
 {
     public function getMongoConnection(){
-
-        $mongoConnection = new MongoClient();
+        $mongoConnection = new MongoDB\Driver\Manager("mongodb://35.161.183.188:27017");
         return $mongoConnection;
     }
 }

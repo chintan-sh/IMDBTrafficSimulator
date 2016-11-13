@@ -1,11 +1,8 @@
 <?php
-    echo "Hi";
-    include_once '/var/www/html/mdb/includes/db/mongo.php';
-    $testObj = new Mongo();
-    echo "Idhar aaya";
-    echo($testObj->getMongoConnection());
-    if($testObj->getMongoConnection()) {
-        echo "Andar aa gaye";
-        var_dump($testObj);
+    include_once '/var/www/html/mdb/includes/common/constants.php';
+    include_once $Sankalp_Phy_Path.'/includes/db/mongo.php';
+    $connTestObj = new Mongo();
+    if($connTestObj->getMongoConnection()) {
+        echo('MongoDB connection working!');
+        var_dump($connTestObj);
     }
-
