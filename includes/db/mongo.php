@@ -6,10 +6,13 @@
  * Date: 11/10/16
  * Time: 11:57 PM
  */
+include '/var/www/html/mdb/vendor/autoload.php';
 class Mongo
 {
     public function getMongoConnection(){
-        $mongoConnection = new MongoDB\Driver\Manager("mongodb://35.161.183.188:27017");
-        return $mongoConnection;
+        //$mongoConnection = new MongoDB\Driver\Manager("mongodb://35.161.183.188:27017");
+        $mongoConnection = new MongoDB\Client("mongodb://35.161.183.188:27017");
+        $db = $mongoConnection->newdb;
+        return $db;
     }
 }

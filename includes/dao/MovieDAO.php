@@ -8,12 +8,19 @@
  */
 include_once '/var/www/html/mdb/includes/common/constants.php';
 include $Sankalp_Phy_Path.'/includes/db/mongo.php';
-$connTestObj = new Mongo();
-
 class movieDAO
 {
     function insertMovie(){
-
+        $dbObj= new Mongo();
+        $collection = $dbObj->movies;
+        $document = array(
+            "title" => "Harry Potter",
+            "Rating" => 100,
+            "by", "JK Rowling"
+        );
+        echo("here");
+        $collection->insert($document);
+        echo "Document inserted successfully";
     }
 
     function deleteMovie(){
