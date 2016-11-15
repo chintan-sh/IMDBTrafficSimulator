@@ -33,7 +33,7 @@
 	      </div>
 	      <div class="content">
       	     <div class="register">
-		  	  <form method="post" action="services/authenticate.php">
+		  	  <form method="post" action="services/rest_signup.php">
 				    <div class="register-top-grid">
                         <h3>Personal Information</h3>
                          <div>

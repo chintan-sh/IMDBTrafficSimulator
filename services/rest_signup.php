@@ -8,29 +8,22 @@ include_once $PHYSICAL_PATH . "includes/dao/userDAO.php";
  * Time: 11:01 PM
  */
 
+$username= $_POST["username"];
+$password= $_POST["password"];
 
 $mysqlObj = new UserDAO();
-$result = $mysqlObj->create_new_user("masoom", "masoom");
+$result = $mysqlObj->create_new_user($username, $password);
 if($result){
-    echo "User created successfully";
+    echo "User created successfully! Redirecting user to home page!";
+    sleep(3);
+    header("Location: http://localhost/mdb/movie.php");
     return;
 }
 
 echo "User creation failed";
 
-//$result = $mysqlObj->check_if_user_exists("chintan");
-//
-//if($result > 0){
-//    echo "Username found";
-//    $pass_result = $mysqlObj->check_if_password_is_valid("chintan", "chintan");
-//    echo "Did we find password? " . $pass_result;
-//}
 
 
 
-print_r($_POST);
-$name=$_POST["name"];
-$email=$_POST["email"];
-$username= $_POST["username"];
-$password= $_POST["password"];
+
 ?>

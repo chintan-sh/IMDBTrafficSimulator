@@ -41,14 +41,14 @@
 			   <div class="col-md-6 login-right">
 			  	<h3>Registered Customers</h3>
 				<p>If you have an account with us, please log in.</p>
-				<form>
+				<form method="post" action="services/rest_login.php">
 				  <div>
-					<span>Email Address<label>*</label></span>
-					<input type="text"> 
+					<span>Username<label>*</label></span>
+					<input type="text" name="username" id="username">
 				  </div>
 				  <div>
 					<span>Password<label>*</label></span>
-					<input type="text"> 
+					<input type="password" name="password" id="password">
 				  </div>
 				  <a class="forgot" href="#">Forgot Your Password?</a>
 				  <input type="submit" value="Login">

@@ -12,25 +12,24 @@ class UserDAO{
     public $db = '';
 
     public function create_new_user($username, $password){
-        $result = 0;
         $db = Mysql::getInstance();
         $check_if_exists =  $this->check_if_user_exists($username);
-        if($check_if_exists > 0){
-
+        if($check_if_exists < 1){//echo "INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "'";
+            $result = $db->query("INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "')");
+            return 1;
         }
-        return $result;
+        return 0;
     }
-
 
     public function check_if_user_exists($username){
         $db = Mysql::getInstance();
         $result = $db->query("SELECT * FROM userdb.credential where c_username= '" . $username . "'");
-        return $result;
+        return $result->num_rows;
     }
 
     public function check_if_password_is_valid($username, $password){
         $db = Mysql::getInstance();
         $result = $db->query("SELECT * FROM userdb.credential where c_username= '" . $username . "' and c_password  = '" . $password . "'");
-        return $result;
+        return $result->num_rows;
     }
 }
