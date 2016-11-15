@@ -41,14 +41,14 @@
 			   <div class="col-md-6 login-right">
 			  	<h3>Registered Customers</h3>
 				<p>If you have an account with us, please log in.</p>
-				<form>
+				<form method="post" action="services/rest_login.php">
 				  <div>
-					<span>Email Address<label>*</label></span>
-					<input type="text"> 
+					<span>Username<label>*</label></span>
+					<input type="text" name="username" id="username">
 				  </div>
 				  <div>
 					<span>Password<label>*</label></span>
-					<input type="text"> 
+					<input type="password" name="password" id="password">
 				  </div>
 				  <a class="forgot" href="#">Forgot Your Password?</a>
 				  <input type="submit" value="Login">
@@ -62,5 +62,24 @@
 <!-- Footer Starts -->
 <?php include_once $PHYSICAL_PATH . "includes/common/footer.php"; ?>
 <!-- Footer Ends -->
+
+<!-- Javascript Goes Here -->
+<script type="application/javascript" src="js/ajax.js"
+<script>
+	$(document).ready(function(){
+
+	});
+
+
+	function authenticate() {
+		var post_url = "http://localhost/mdb/services/authenticate.php";
+		var post_data_url = "username=" + $('#loginEmail').val() + "&password=" + $('#loginPassword').val();
+		postData(post_url, post_data_url, authenticateCallback, true);
+	}
+
+	function authenticateCallback(data){
+		console.log("Response : " + data);
+	}
+</script>
 </body>
 </html>
