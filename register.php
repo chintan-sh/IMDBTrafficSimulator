@@ -33,59 +33,50 @@
 	      </div>
 	      <div class="content">
       	     <div class="register">
-		  	  <form> 
-				 <div class="register-top-grid">
-					<h3>Personal Information</h3>
-					 <div>
-						<span>First Name<label>*</label></span>
-						<input type="text"> 
-					 </div>
-					 <div>
-						<span>Last Name<label>*</label></span>
-						<input type="text"> 
-					 </div>
-					 <div>
-						 <span>Email Address<label>*</label></span>
-						 <input type="text"> 
-					 </div>
-					 <div class="clearfix"> </div>
-					   <a class="news-letter" href="#">
-						 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
-					   </a>
+		  	  <form method="post" action="services/authenticate.php">
+				    <div class="register-top-grid">
+                        <h3>Personal Information</h3>
+                         <div>
+                            <span>Name<label>*</label></span>
+                            <input type="text" name="name" id="name">
+                         </div>
+                         <div>
+                             <span>Email Address<label>*</label></span>
+                             <input type="text" name="email" id="email">
+                         </div>
+                         <div class="clearfix"> </div>
+                           <a class="news-letter" href="#">
+                             <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+                           </a>
 					 </div>
 				     <div class="register-bottom-grid">
 						    <h3>Login Information</h3>
+                             <div>
+                                 <span>Username<label>*</label></span>
+                                 <input type="text" name="username" id="username">
+                             </div>
 							 <div>
 								<span>Password<label>*</label></span>
-								<input type="text">
+								<input type="password" name="password" id="password">
 							 </div>
 							 <div>
 								<span>Confirm Password<label>*</label></span>
-								<input type="text">
+								<input type="password" name="confirm_password" id="confirm_password">
 							 </div>
 							 <div class="clearfix"> </div>
 					 </div>
-				</form>
-				<div class="clearfix"> </div>
-				<div class="register-but">
-				   <form>
-					   <input type="submit" value="submit">
-					   <div class="clearfix"> </div>
-				   </form>
-				</div>
-		   </div>
-           </div>
+                     <div class="clearfix"> </div>
+                     <div class="register-but">
+                           <input type="submit" value="submit">
+                           <div class="clearfix"> </div>
+                    </div>
+               </form> <!--form ends-->
+		      </div><!-- registration ends-->
+          </div>
     </div>
 </div>
 <!-- Footer Starts -->
 <?php include_once $PHYSICAL_PATH . "includes/common/footer.php"; ?>
 <!-- Footer Ends -->
-
-<!-- Javascript Goes Here -->
-<script type="application/javascript" src="js/ajax.js"
-<script>
-
-</script>
-
 </body>
 </html>

@@ -62,5 +62,24 @@
 <!-- Footer Starts -->
 <?php include_once $PHYSICAL_PATH . "includes/common/footer.php"; ?>
 <!-- Footer Ends -->
+
+<!-- Javascript Goes Here -->
+<script type="application/javascript" src="js/ajax.js"
+<script>
+	$(document).ready(function(){
+
+	});
+
+
+	function authenticate() {
+		var post_url = "http://localhost/mdb/services/authenticate.php";
+		var post_data_url = "username=" + $('#loginEmail').val() + "&password=" + $('#loginPassword').val();
+		postData(post_url, post_data_url, authenticateCallback, true);
+	}
+
+	function authenticateCallback(data){
+		console.log("Response : " + data);
+	}
+</script>
 </body>
 </html>
