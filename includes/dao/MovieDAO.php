@@ -7,56 +7,52 @@
  * Time: 11:14 PM
  */
 include_once '/var/www/html/mdb/includes/common/constants.php';
-//include $Sankalp_Phy_Path.'/includes/db/mongo.php';
+include $Sankalp_Phy_Path.'/includes/db/mongo.php';
+include $Sankalp_Phy_Path.'/fpdf/fpdf.php';
 //include '/var/www/html/mdb/vendor/autoload.php';
 
 class movieDAO
 {
     function insertMovie(){
-        $conn = new MongoClient("mongodb://35.161.183.188:27017");
-
-        $db = $conn->newdb;
-
-        $username = "admin";
-        $password = "admin";
-
-        $db->authenticate($username, $password);
-        var_dump($db);
-        $collection= $db->movies;
-        var_dump($collection);
+        $connObj= new MongoClass();
+        $collection= $connObj->getMovieCollection();
         $document = array(
-            'title' => "Harry Potter",
-            'Rating' => 100,
-            'by' => "JK Rowling");
+            'title' => "James Bond",
+            'Rating' => 95,
+            'by' => "Chris");
         echo("Inserting -> ");
-        var_dump($document);
         $collection->insert($document, array("w" => 0));
-        var_dump($collection);
-    }
-
-
-    function deleteMovie(){
-
+        echo("Insertion worked! ");
     }
 
     function getMovie(){
-        $conn = new MongoClient("mongodb://35.161.183.188:27017");
-
-        $db = $conn->newdb;
-
-        $username = "admin";
-        $password = "admin";
-
-        $db->authenticate($username, $password);
-        var_dump($db);
-        $collection= $db->movies;
-        var_dump($collection);
+        $connObj= new MongoClass();
+        $collection= $connObj->getMovieCollection();
         $cursor = $collection->find();
-        var_dump($cursor);
         for ($i = 0; $i < 10; $i++) {
             var_dump($cursor->getNext());
         }
+    }
+    // Function to generate pdf from newdb
+    function generatePDF(){
+        $connObj= new MongoClass();
+        $collection= $connObj->getMovieCollection();
+        $cursor= $collection->find();
+        $d = array();
+        while ($row = $cursor->getNext()) {
+            $d[] = $row;
+        }
 
+        $pdf= new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont("Arial","B",10);
+
+        foreach($d as $item) {
+            foreach ($item as $val)
+                $pdf->Cell(50, 10, $val, 0);
+            $pdf->Ln();
+        }
+        $pdf->Output();
     }
     
 }
