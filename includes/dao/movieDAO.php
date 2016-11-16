@@ -8,7 +8,7 @@
  */
 include_once '/var/www/html/mdb/includes/common/constants.php';
 include $Sankalp_Phy_Path.'/includes/db/mongo.php';
-include $Sankalp_Phy_Path.'/fpdf/fpdf.php';
+//include $Sankalp_Phy_Path.'/fpdf/fpdf.php';
 //include '/var/www/html/mdb/vendor/autoload.php';
 
 class movieDAO
@@ -34,25 +34,25 @@ class movieDAO
         }
     }
     // Function to generate pdf from newdb
-    function generatePDF(){
-        $connObj= new MongoClass();
-        $collection= $connObj->getMovieCollection();
-        $cursor= $collection->find();
-        $d = array();
-        while ($row = $cursor->getNext()) {
-            $d[] = $row;
-        }
-
-        $pdf= new FPDF();
-        $pdf->AddPage();
-        $pdf->SetFont("Arial","B",10);
-
-        foreach($d as $item) {
-            foreach ($item as $val)
-                $pdf->Cell(50, 10, $val, 0);
-            $pdf->Ln();
-        }
-        $pdf->Output();
-    }
+//    function generatePDF(){
+//        $connObj= new MongoClass();
+//        $collection= $connObj->getMovieCollection();
+//        $cursor= $collection->find();
+//        $d = array();
+//        while ($row = $cursor->getNext()) {
+//            $d[] = $row;
+//        }
+//
+//        $pdf= new FPDF();
+//        $pdf->AddPage();
+//        $pdf->SetFont("Arial","B",10);
+//
+//        foreach($d as $item) {
+//            foreach ($item as $val)
+//                $pdf->Cell(50, 10, $val, 0);
+//            $pdf->Ln();
+//        }
+//        $pdf->Output();
+//    }
     
 }

@@ -14,7 +14,7 @@ $password= $_POST["password"];
 $mysqlObj = new UserDAO();
 $result = $mysqlObj->create_new_user($username, $password);
 if($result){
-    echo "User created successfully! Redirecting user to home page!";
+    echo "User created successfully! Redirecting user to home page!ing";
     sleep(3);
     header("Location: http://localhost/mdb/movie.php");
     return;
