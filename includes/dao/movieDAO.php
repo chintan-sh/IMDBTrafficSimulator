@@ -8,32 +8,57 @@
  */
 include_once '/var/www/html/mdb/includes/common/constants.php';
 include $Sankalp_Phy_Path.'/includes/db/mongo.php';
-//include $Sankalp_Phy_Path.'/fpdf/fpdf.php';
-//include '/var/www/html/mdb/vendor/autoload.php';
 
 class movieDAO
 {
-    function insertMovie(){
-        $connObj= new MongoClass();
-        $collection= $connObj->getMovieCollection();
-        $document = array(
-            'title' => "James Bond",
-            'Rating' => 95,
-            'by' => "Chris");
-        echo("Inserting -> ");
-        $collection->insert($document, array("w" => 0));
+    function insertMovie($movie){
+        $connObj = MongoClass::getInstance();
+        $db= $connObj->newdb;
+        $collection= $db->movies;
+        $collection->insert($movie, array("w" => 0));
         echo("Insertion worked! ");
     }
 
-    function getMovie(){
-        $connObj= new MongoClass();
-        $collection= $connObj->getMovieCollection();
+    function getMoviesByGenre($genre){
+        $connObj=MongoClass::getInstance();
+        $db=$connObj->newdb;
+        $collection=$db->movies;
+        $arrayObj = new ArrayObject(array('moviename','rating','director'));
+        $query = array( "movies" => array( 'genre' => $genre ) );
+        $cursor= $collection->find($query);
+        while($cursor->hasNext()){
+            $arrayObj->append($cursor->getNext());
+        }
+        return $arrayObj;
+    }
+
+    function getMoviesByYear($year){
+        $connObj=MongoClass::getInstance();
+        $db=$connObj->newdb;
+        $collection=$db->movies;
+        $arrayObj = new ArrayObject(array('moviename','rating','director'));
+        $query = array( "movies" => array( 'date' => $year) );
+        $cursor= $collection->find($query);
+        while($cursor->hasNext()){
+            $arrayObj->append($cursor->getNext());
+        }
+        return $arrayObj;
+
+    }
+
+    function getAllMovies(){
+        $connObj = MongoClass::getInstance();
+        $db= $connObj->newdb;
+        $collection= $db->movies;
+        $arrayObj = new ArrayObject(array('moviename','rating','director'));
         $cursor = $collection->find();
         for ($i = 0; $i < 10; $i++) {
-            var_dump($cursor->getNext());
+            $arrayObj->append($cursor->getNext());
         }
+        return $arrayObj;
     }
-    // Function to generate pdf from newdb
+
+//     Function to generate pdf from newdb
 //    function generatePDF(){
 //        $connObj= new MongoClass();
 //        $collection= $connObj->getMovieCollection();
