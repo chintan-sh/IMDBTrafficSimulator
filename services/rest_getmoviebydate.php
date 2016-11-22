@@ -6,14 +6,14 @@
  * Time: 7:53 PM
  */
 
-$genre= $_POST["genre"];
+$genre= $_POST["year"];
 $objDao= new MovieDAO();
 
-$resultList= $objDao->getMoviesByGenre("genre");
+$resultList= $objDao->getMoviesByYear("year");
 
 if($resultList!=null){
     echo($resultList);
 }
 else{
-    echo("Sorry movie not found for ".$genre." genre!");
+    echo("Sorry movie not found for ".$year." year!");
 }
