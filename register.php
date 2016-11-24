@@ -38,11 +38,11 @@
                         <h3>Personal Information</h3>
                          <div>
                             <span>Name<label>*</label></span>
-                            <input type="text" name="name" id="name">
+                            <input type="text" name="name" id="name" required>
                          </div>
                          <div>
                              <span>Email Address<label>*</label></span>
-                             <input type="text" name="email" id="email">
+                             <input type="text" name="email" id="email" required>
                          </div>
                          <div class="clearfix"> </div>
                            <a class="news-letter" href="#">
@@ -53,15 +53,15 @@
 						    <h3>Login Information</h3>
                              <div>
                                  <span>Username<label>*</label></span>
-                                 <input type="text" name="username" id="username">
+                                 <input type="text" name="username" id="username" required>
                              </div>
 							 <div>
 								<span>Password<label>*</label></span>
-								<input type="password" name="password" id="password">
+								<input type="password" name="password" id="password" required>
 							 </div>
 							 <div>
 								<span>Confirm Password<label>*</label></span>
-								<input type="password" name="confirm_password" id="confirm_password">
+								<input type="password" name="confirm_password" id="confirm_password" required>
 							 </div>
 							 <div class="clearfix"> </div>
 					 </div>
