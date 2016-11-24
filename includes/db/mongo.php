@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: sankalp
@@ -8,6 +7,7 @@
  */
 include '/var/www/html/mdb/vendor/autoload.php';
 class MongoClass{
+    private static $mongoConnection;
         //    public function getMongoConnection(){
         //    $mongoConnection = new MongoClient("mongodb://35.161.183.188:27017");
         //    $username = "admin";
@@ -17,13 +17,11 @@ class MongoClass{
         //        return $mongoConnection;
         //    }
 
-     public function getMovieCollection(){
-         $mongoConnection= new MongoClient();
-         $db= $mongoConnection->newdb;
-         $collection= $db->movies;
-         return $collection;
-     }
-
-
+    public static function getInstance(){
+        if (!self::$mongoConnection){
+            self::$mongoConnection = new MongoClient();
+        }
+        return self::$mongoConnection;
+    }
 
 }
