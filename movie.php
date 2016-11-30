@@ -1,4 +1,11 @@
-<?php include_once "/var/www/mdb/includes/common/constants.php"; ?>
+<?php include_once "/var/www/mdb/includes/common/constants.php";
+
+$loggedIn = false;
+if(isLoggedIn()){
+	$loggedIn = true;
+}
+
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -22,12 +29,16 @@
 			 </ul>
 			</div>
 			<div class="col-sm-3 header_right">
-			   <ul class="header_right_box">
-				 <li><img src="images/p1.png" alt=""/></li>
-				 <li><p><a href="login.php">Carol Varois</a></p></li>
-				 <li class="last"><i class="edit"> </i></li>
-				 <div class="clearfix"> </div>
-			   </ul>
+				<ul class="header_right_box">
+					<?php if($loggedIn){ ?>
+						<li><img src="images/p1.png" alt=""/></li>
+						<li><p><a href="login.php"><?php echo $_SESSION["username"] ?> </a> | <a href="logout.php">Logout</a></p></li>
+						<li class="last"><i class="edit"> </i></li>
+					<?php }else{ ?>
+						<li><p><a href="login.php">Login | Signup</a></p></li>
+					<?php } ?>
+					<div class="clearfix"> </div>
+				</ul>
 			</div>
 			<div class="clearfix"> </div>
 	      </div>

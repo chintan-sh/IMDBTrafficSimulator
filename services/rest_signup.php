@@ -14,10 +14,10 @@ $password= $_POST["password"];
 $mysqlObj = new UserDAO();
 $result = $mysqlObj->create_new_user($username, $password);
 if($result){
-    echo "User created successfully! Redirecting user to home page!ing";
-    sleep(3);
-    header("Location: http://localhost/mdb/movie.php");
-    return;
+    $_SESSION["username"] = $username;
+    $_SESSION["is_logged"] = true;
+    header("Location: " . $STATIC_URL . "/movie.php");
+    die();
 }
 
 echo "User creation failed";

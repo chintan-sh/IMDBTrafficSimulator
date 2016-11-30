@@ -1,4 +1,11 @@
-<?php include_once "/var/www/mdb/includes/common/constants.php"; ?>
+<?php include_once "/var/www/mdb/includes/common/constants.php";
+
+$loggedIn = false;
+if(isLoggedIn()){
+	$loggedIn = true;
+}
+
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -22,12 +29,16 @@
 			 </ul>
 			</div>
 			<div class="col-sm-3 header_right">
-			   <ul class="header_right_box">
-				 <li><img src="images/p1.png" alt=""/></li>
-				 <li><p><a href="login.php">Carol Varois</a></p></li>
-				 <li class="last"><i class="edit"> </i></li>
-				 <div class="clearfix"> </div>
-			   </ul>
+				<ul class="header_right_box">
+					<?php if($loggedIn){ ?>
+						<li><img src="images/p1.png" alt=""/></li>
+						<li><p><a href="login.php"><?php echo $_SESSION["username"] ?> </a> | <a href="logout.php">Logout</a></p></li>
+						<li class="last"><i class="edit"> </i></li>
+					<?php }else{ ?>
+						<li><p><a href="login.php">Login | Signup</a></p></li>
+					<?php } ?>
+					<div class="clearfix"> </div>
+				</ul>
 			</div>
 			<div class="clearfix"> </div>
 	      </div>
@@ -41,7 +52,7 @@
 			   <div class="col-md-6 login-right">
 			  	<h3>Registered Customers</h3>
 				<p>If you have an account with us, please log in.</p>
-				<form method="post" action="services/rest_login.php">
+				<form id="loginForm" action="services/rest_login.php" method="post">
 				  <div>
 					<span>Username<label>*</label></span>
 					<input type="text" name="username" id="username">
@@ -51,7 +62,7 @@
 					<input type="password" name="password" id="password">
 				  </div>
 				  <a class="forgot" href="#">Forgot Your Password?</a>
-				  <input type="submit" value="Login">
+				  <input type="submit" id="submitBtn" value="Login">
 			    </form>
 			   </div>	
 			   <div class="clearfix"> </div>
@@ -67,14 +78,19 @@
 <script type="application/javascript" src="js/ajax.js"
 <script>
 	$(document).ready(function(){
-
+		$('#loginForm').on("submit", function(e){
+            e.preventDefault();
+			console.log("Bhai kele?");
+			console.log("Hein?");
+			authenticate();
+		});
 	});
 
 
 	function authenticate() {
-		var post_url = "http://localhost/mdb/services/authenticate.php";
-		var post_data_url = "username=" + $('#loginEmail').val() + "&password=" + $('#loginPassword').val();
-		postData(post_url, post_data_url, authenticateCallback, true);
+		var post_url = "http://localhost/mdb/services/rest_login.php";
+		var post_data_url = "username=" + $('#username').val() + "&password=" + $('#password').val();
+		//postData(post_url, post_data_url, authenticateCallback, true);
 	}
 
 	function authenticateCallback(data){

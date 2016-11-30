@@ -8,20 +8,20 @@
 include '/var/www/html/mdb/vendor/autoload.php';
 class MongoClass{
     private static $mongoConnection;
-        //    public function getMongoConnection(){
-        //    $mongoConnection = new MongoClient("mongodb://35.161.183.188:27017");
-        //    $username = "admin";
-        //    $password = "admin";
-        //    $db= $mongoConnection->mydb;
-        //    $db->authenticate($username, $password);
-        //        return $mongoConnection;
-        //    }
-
-    public static function getInstance(){
-        if (!self::$mongoConnection){
-            self::$mongoConnection = new MongoClient();
+        public function getMongoConnection(){
+        $mongoConnection = new MongoClient("mongodb://35.161.183.88:27017");
+        $username = "admin";
+        $password = "admin";
+        $db= $mongoConnection->mydb;
+        $db->authenticate($username, $password);
+            return $mongoConnection;
         }
-        return self::$mongoConnection;
-    }
+
+        public static function getInstance(){
+            if (!self::$mongoConnection){
+                self::$mongoConnection = new MongoClient();
+            }
+            return self::$mongoConnection;
+        }
 
 }

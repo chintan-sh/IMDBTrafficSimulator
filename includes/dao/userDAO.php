@@ -30,6 +30,6 @@ class UserDAO{
     public function check_if_password_is_valid($username, $password){
         $db = Mysql::getInstance();
         $result = $db->query("SELECT * FROM userdb.credential where c_username= '" . $username . "' and c_password  = '" . $password . "'");
-        return $result->num_rows;
+        return $result;
     }
 }
