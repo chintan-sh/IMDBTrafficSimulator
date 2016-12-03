@@ -15,7 +15,7 @@ class UserDAO{
         $db = Mysql::getInstance();
         $check_if_exists =  $this->check_if_user_exists($username);
         if($check_if_exists < 1){//echo "INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "'";
-            $result = $db->query("INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "')");
+            $result = $db->query("INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . md5($password) . "')");
             return 1;
         }
         return 0;
@@ -29,7 +29,7 @@ class UserDAO{
 
     public function check_if_password_is_valid($username, $password){
         $db = Mysql::getInstance();
-        $result = $db->query("SELECT * FROM userdb.credential where c_username= '" . $username . "' and c_password  = '" . $password . "'");
+        $result = $db->query("SELECT * FROM userdb.credential where c_username= '" . $username . "' and c_password  = '" . md5($password) . "'");
         return $result;
     }
 }

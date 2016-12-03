@@ -104,7 +104,7 @@ if(isLoggedIn()){
 			if( password != confirm_password){
 				$(password).focus();
 				$(confirm_password).focus();
-				$(".errorMsg").show()
+				$(".errorMsg").show();
 				e.preventDefault();
 			}
 		});

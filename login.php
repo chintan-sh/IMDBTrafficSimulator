@@ -52,7 +52,7 @@ if(isLoggedIn()){
 			   <div class="col-md-6 login-right">
 			  	<h3>Registered Customers</h3>
 				<p>If you have an account with us, please log in.</p>
-				<form id="loginForm" action="services/rest_login.php" method="post">
+				<form id="loginForm"  method="post"><!--action="services/rest_login.php"-->
 				  <div>
 					<span>Username<label>*</label></span>
 					<input type="text" name="username" id="username">
@@ -61,7 +61,7 @@ if(isLoggedIn()){
 					<span>Password<label>*</label></span>
 					<input type="password" name="password" id="password">
 				  </div>
-				  <a class="forgot" href="#">Forgot Your Password?</a>
+					<div class="errorMsg" style="color: red; display:none">Username/Password did not match!</div>
 				  <input type="submit" id="submitBtn" value="Login">
 			    </form>
 			   </div>	
@@ -75,13 +75,11 @@ if(isLoggedIn()){
 <!-- Footer Ends -->
 
 <!-- Javascript Goes Here -->
-<script type="application/javascript" src="js/ajax.js"
+<script type="application/javascript" src="js/ajax.js"></script>
 <script>
 	$(document).ready(function(){
-		$('#loginForm').on("submit", function(e){
+		$('#loginForm').submit(function(e){
             e.preventDefault();
-			console.log("Bhai kele?");
-			console.log("Hein?");
 			authenticate();
 		});
 	});
@@ -90,11 +88,15 @@ if(isLoggedIn()){
 	function authenticate() {
 		var post_url = "http://localhost/mdb/services/rest_login.php";
 		var post_data_url = "username=" + $('#username').val() + "&password=" + $('#password').val();
-		//postData(post_url, post_data_url, authenticateCallback, true);
+		postData(post_url, post_data_url, authenticateCallback, true);
 	}
 
 	function authenticateCallback(data){
-		console.log("Response : " + data);
+		console.log("Response '"+$.trim(data)+"'");
+		if($.trim(data) == "success"){
+			window.location = "index.php";
+		}
+		$(".errorMsg").show();
 	}
 </script>
 </body>

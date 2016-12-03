@@ -8,8 +8,8 @@ include_once $PHYSICAL_PATH . "includes/dao/userDAO.php";
  * Time: 11:01 PM
  */
 
-$username= $_REQUEST["username"];
-$password= $_REQUEST["password"];
+$username= $_POST["username"];
+$password= $_POST["password"];
 
 $mysqlObj = new UserDAO();
 $result = $mysqlObj->check_if_user_exists($username);
@@ -17,16 +17,13 @@ $result = $mysqlObj->check_if_user_exists($username);
 if($result > 0){
     $pass_result = $mysqlObj->check_if_password_is_valid($username, $password);
     if($pass_result->num_rows > 0){
-        // $user = $pass_result->fetch_row(); // echo "<pre> Yalla <br> "; print_r($user); echo "</pre>";
         $_SESSION["username"] = $username;
         $_SESSION["is_logged"] = true;
-        header("Location: " . $STATIC_URL . "/movie.php");
-        echo "Login successful! Redirecting user to home page!";
-        echo "Success";
-        die();
+        echo "success";
+        return;
     }
 }
 
-echo "Failed";
+echo "failed";
 
 ?>
