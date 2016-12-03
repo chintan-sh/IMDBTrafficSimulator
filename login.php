@@ -32,8 +32,8 @@ if(isLoggedIn()){
 				<ul class="header_right_box">
 					<?php if($loggedIn){ ?>
 						<li><img src="images/p1.png" alt=""/></li>
-						<li><p><a href="login.php"><?php echo $_SESSION["username"] ?> </a> | <a href="logout.php">Logout</a></p></li>
-						<li class="last"><i class="edit"> </i></li>
+						<li><p><a href="login.php"><?php echo ucfirst($_SESSION["username"]) ?> </a> | <a href="logout.php">Logout</a></p></li>
+						<!--<li class="last"><i class="edit"> </i></li>-->
 					<?php }else{ ?>
 						<li><p><a href="login.php">Login | Signup</a></p></li>
 					<?php } ?>
@@ -95,8 +95,9 @@ if(isLoggedIn()){
 		console.log("Response '"+$.trim(data)+"'");
 		if($.trim(data) == "success"){
 			window.location = "index.php";
+		}else {
+			$(".errorMsg").show();
 		}
-		$(".errorMsg").show();
 	}
 </script>
 </body>
