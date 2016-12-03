@@ -1337,7 +1337,7 @@ p.cart {
 	
 	font-size:1em;
 }
-.register-top-grid input[type="text"], input[type="password"], .register-bottom-grid input[type="text"], input[type="password"] {
+.register-top-grid input[type="text"], input[type="password"], select, .register-bottom-grid input[type="text"], input[type="password"]{
 	border: 1px solid #EEE;
 	outline-color:#FF5B36;
 	width: 96%;
@@ -1345,6 +1345,7 @@ p.cart {
 	padding: 0.5em;
 	-webkit-appearance: none;
 }
+
 .checkbox {
 	margin-bottom: 4px;
 	padding-left: 27px;

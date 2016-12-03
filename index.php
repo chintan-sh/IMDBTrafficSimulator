@@ -28,53 +28,29 @@ if(isLoggedIn()){
 <body>
 <div class="container">
 	<div class="container_wrap">
-		<div class="header_top">
-		    <div class="col-sm-3 logo"><a href="index.php"><img src="images/logo.png" alt=""/></a></div>
-		    <div class="col-sm-6 nav">
-			  <ul>
-				 <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a href="movie.php"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="movie"><a href="movie.php"> </a> </span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="video"><a href="movie.php"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="game"><a href="movie.php"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="tv"><a href="movie.php"> </a></span></li>
-				 <li><span class="simptip-position-bottom simptip-movable" data-tooltip="more"><a href="movie.php"> </a></span></li>
-			 </ul>
+		<!-- Navbar goes  here -->
+		<?php include_once $PHYSICAL_PATH . "includes/common/navigation.php"; ?>
+		<div class="slider">
+		   <div class="callbacks_container">
+			  <ul class="rslides" id="slider">
+				<li><img src="images/banner.jpg" class="img-responsive" alt=""/>
+					<div class="button">
+					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					</div>
+				</li>
+				<li><img src="images/banner1.jpg" class="img-responsive" alt=""/>
+					<div class="button">
+					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					</div>
+				</li>
+				<li><img src="images/banner2.jpg" class="img-responsive" alt=""/>
+					<div class="button">
+					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					</div>
+				</li>
+			  </ul>
 			</div>
-			<div class="col-sm-3 header_right">
-			   <ul class="header_right_box">
-				 <?php if($loggedIn){ ?>
-					 <li><img src="images/p1.png" alt=""/></li>
-					 <li><p><a href="login.php"><?php echo ucfirst($_SESSION["username"]) ?> </a> | <a href="logout.php">Logout</a></p></li>
-					 <!--<li class="last"><i class="edit"> </i></li>-->
-				 <?php }else{ ?>
-					 <li><p><a href="login.php">Login | Signup</a></p></li>
-				 <?php } ?>
-				 <div class="clearfix"> </div>
-			   </ul>
-			</div>
-			<div class="clearfix"> </div>
-	      </div>
-	      <div class="slider">
-	   <div class="callbacks_container">
-	      <ul class="rslides" id="slider">
-	        <li><img src="images/banner.jpg" class="img-responsive" alt=""/>
-	        	<div class="button">
-			      <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
-			    </div>
-			</li>
-	        <li><img src="images/banner1.jpg" class="img-responsive" alt=""/>
-	        	<div class="button">
-			      <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
-			    </div>
-			</li>
-	        <li><img src="images/banner2.jpg" class="img-responsive" alt=""/>
-	        	<div class="button">
-			      <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
-			    </div>
-			</li>
-	      </ul>
-	    </div>
-	    <div class="banner_desc">
+	    	<div class="banner_desc">
 			    	<div class="col-md-9">
 			    		<ul class="list_1">
 			    			<li>Published <span class="m_1">Feb 20, 2015</span></li>
@@ -89,7 +65,7 @@ if(isLoggedIn()){
 			    			<li><i class="icon3"> </i><p>546</p></li>
 			    		</ul>
 			    	</div>
-			    </div>
+			</div>
       </div>
       <div class="content">
       	<div class="box_1">
