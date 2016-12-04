@@ -11,14 +11,6 @@ include $Sankalp_Phy_Path.'/includes/db/mongo.php';
 
 class movieDAO
 {
-    function insertMovie($movie){
-        $connObj = MongoClass::getInstance();
-        $db= $connObj->newdb;
-        $collection= $db->movies;
-        $collection->insert($movie, array("w" => 0));
-        echo("Insertion worked! ");
-    }
-
     function getMoviesByGenre($genre){
         $connObj=MongoClass::getInstance();
         $db=$connObj->newdb;
@@ -48,9 +40,9 @@ class movieDAO
 
     function getAllMovies(){
         $connObj = MongoClass::getInstance();
-        $db= $connObj->newdb;
-        $collection= $db->movies;
-        $arrayObj = new ArrayObject(array('moviename','rating','director'));
+        $db= $connObj->movies;
+        $collection= $db->moviedetail;
+        $arrayObj = new ArrayObject(array('Director','Year'));
         $cursor = $collection->find();
         for ($i = 0; $i < 10; $i++) {
             $arrayObj->append($cursor->getNext());
