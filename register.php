@@ -34,7 +34,7 @@ if(isLoggedIn()){
                          </div>
 						 <div>
 							<span>Preferences<label>*</label></span>
-							 <select id="preferences" required="required">
+							 <select id="preferences" name="preferences[]" multiple required="required">
 								 <option value="crime">Crime</option>
 								 <option value="thriller">Thriller</option>
 								 <option value="drama">Drama</option>

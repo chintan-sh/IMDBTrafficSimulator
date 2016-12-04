@@ -8,20 +8,34 @@ include_once $PHYSICAL_PATH . "includes/dao/userDAO.php";
  * Time: 11:01 PM
  */
 
+$name = $_POST["name"];
 $username= $_POST["username"];
 $password= $_POST["password"];
+$email = $_POST["email"];
+
+if(count($_POST['preferences']) > 1){
+    foreach ($_POST['preferences'] as $one_preference) {
+        $preferences .= $one_preference . ",";
+    }
+}else{
+    $preferences = $_POST['preferences'];
+}
+
+$preferences = rtrim($preferences, ",");
 
 $mysqlObj = new UserDAO();
-$result = $mysqlObj->create_new_user($username, $password);
+$result = $mysqlObj->create_new_user($name, $username, $password, $email, $preferences);
 if($result){
+    $_SESSION["name"] = $name;
+    $_SESSION["preferences"] = $preferences;
     $_SESSION["username"] = $username;
+    $_SESSION["email"] = $email;
     $_SESSION["is_logged"] = true;
     header("Location: " . $STATIC_URL . "/movie.php");
     die();
 }
 
 echo "User creation failed";
-
 
 
 

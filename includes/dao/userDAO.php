@@ -11,11 +11,22 @@ include_once $PHYSICAL_PATH . "includes/db/mysql.php";
 class UserDAO{
     public $db = '';
 
-    public function create_new_user($username, $password){
+    public function create_new_user($name, $username, $password, $email, $preferences){
         $db = Mysql::getInstance();
         $check_if_exists =  $this->check_if_user_exists($username);
         if($check_if_exists < 1){//echo "INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "'";
-            $result = $db->query("INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . md5($password) . "')");
+            $result = $db->query("
+                                    INSERT INTO 
+                                    userdb.credential (c_name, c_username, c_password, c_email, c_preferences )
+                                    VALUES 
+                                    (
+                                    '" . $name . "',
+                                    '" . $username . "',
+                                    '" . md5($password) . "',
+                                    '" . $email . "',
+                                    '" . $preferences . "'
+                                    )
+                                ");
             return 1;
         }
         return 0;
