@@ -1,23 +1,27 @@
-<?php include_once "/var/www/mdb/includes/common/constants.php";
+<?php include_once "/var/www/html/mdb/includes/common/constants.php";
+include $Sankalp_Phy_Path.'/includes/dao/movieDAO.php';
 
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
 }
 
+$movieDao= new movieDAO();
+$movieList= $movieDao->getRandomMovies();
+
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 <!-- Header Starts -->
-<?php include_once $PHYSICAL_PATH . "includes/common/header.php"; ?>
+<?php include_once $Sankalp_Phy_Path . "includes/common/header.php"; ?>
 <!-- Header Ends -->
 </head>
 <body>
 <div class="container">
 	<div class="container_wrap">
 		<!-- Navbar goes  here -->
-		<?php include_once $PHYSICAL_PATH . "includes/common/navigation.php"; ?>
+		<?php include_once $Sankalp_Phy_Path . "includes/common/navigation.php"; ?>
 	      <div class="content">
 	   	   <h1 class="m_3">Now in the Movie</h1>
       	       <div class="movie_top">

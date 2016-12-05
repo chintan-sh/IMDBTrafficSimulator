@@ -6,8 +6,8 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once '/var/www/mdb/includes/common/constants.php';
-include $PHYSICAL_PATH.'/includes/db/mongo.php';
+include_once '/var/www/html/mdb/includes/common/constants.php';
+include $Sankalp_Phy_Path.'/includes/db/mongo.php';
 
 class movieDAO
 {
@@ -15,7 +15,7 @@ class movieDAO
         $connObj=MongoClass::getInstance();
         $db=$connObj->movieData;
         $collection=$db->moviedetail;
-        $query = array( 'Genre' => "Short" );
+        $query = array( 'Genre' => $genre );
         $cursor= $collection->find($query);
         $resultArr = iterator_to_array($cursor);
         return $resultArr;
@@ -23,30 +23,25 @@ class movieDAO
 
     function getMoviesByYear($year){
         $connObj=MongoClass::getInstance();
-        $db=$connObj->newdb;
-        $collection=$db->movies;
-        $arrayObj = new ArrayObject(array('moviename','rating','director'));
-        $query = array( "movies" => array( 'date' => $year) );
+        $db=$connObj->movieData;
+        $collection=$db->moviedetail;
+        $query = array('Year' => $year );
         $cursor= $collection->find($query);
-        while($cursor->hasNext()){
-            $arrayObj->append($cursor->getNext());
-        }
-        return $arrayObj;
+        $resultArr = iterator_to_array($cursor);
+        return $resultArr;
 
     }
 
-    function getAllMovies(){
+    function getRandomMovies(){
         $connObj = MongoClass::getInstance();
-        $db= $connObj->movies;
-        $collection= $db->moviedetail;
-        $arrayObj = new ArrayObject(array('Director','Year'));
+        $db = $connObj->movieData;
+        $collection = $db->moviedetail;
+        $arrayObj = new ArrayObject();
         $cursor = $collection->find();
-        for ($i = 0; $i < 10; $i++) {
-            $arrayObj->append($cursor->getNext());
-        }
-        return $arrayObj;
+        $cursor->limit(15);
+        $resultArray= iterator_to_array($cursor);
+        return ($resultArray);
     }
-
 //     Function to generate pdf from newdb
 //    function generatePDF(){
 //        $connObj= new MongoClass();

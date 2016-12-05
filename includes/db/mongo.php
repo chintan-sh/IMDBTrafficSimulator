@@ -5,7 +5,7 @@
  * Date: 11/10/16
  * Time: 11:57 PM
  */
-include '/var/www/mdb/vendor/autoload.php';
+include '/var/www/html/mdb/vendor/autoload.php';
 class MongoClass{
     private static $mongoConnection;
     private $conn='';
