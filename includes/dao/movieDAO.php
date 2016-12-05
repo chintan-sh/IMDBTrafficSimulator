@@ -6,22 +6,19 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once '/var/www/html/mdb/includes/common/constants.php';
-include $Sankalp_Phy_Path.'/includes/db/mongo.php';
+include_once '/var/www/mdb/includes/common/constants.php';
+include $PHYSICAL_PATH.'/includes/db/mongo.php';
 
 class movieDAO
 {
     function getMoviesByGenre($genre){
         $connObj=MongoClass::getInstance();
-        $db=$connObj->newdb;
-        $collection=$db->movies;
-        $arrayObj = new ArrayObject(array('moviename','rating','director'));
-        $query = array( "movies" => array( 'genre' => $genre ) );
+        $db=$connObj->movieData;
+        $collection=$db->moviedetail;
+        $query = array( 'Genre' => "Short" );
         $cursor= $collection->find($query);
-        while($cursor->hasNext()){
-            $arrayObj->append($cursor->getNext());
-        }
-        return $arrayObj;
+        $resultArr = iterator_to_array($cursor);
+        return $resultArr;
     }
 
     function getMoviesByYear($year){

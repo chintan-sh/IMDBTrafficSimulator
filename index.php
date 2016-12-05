@@ -1,9 +1,17 @@
 <?php include_once "/var/www/mdb/includes/common/constants.php";
+include_once $PHYSICAL_PATH. "includes/dao/movieDAO.php";
 
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
 }
+
+$movieObj = new movieDAO();
+echo "<pre>"; print_r($movieObj->getMoviesByGenre()	); echo "</pre>";
+
+
+exit();
+
 
 ?>
 <!DOCTYPE HTML>
