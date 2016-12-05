@@ -15,7 +15,7 @@ class movieDAO
         $connObj=MongoClass::getInstance();
         $db=$connObj->movieData;
         $collection=$db->moviedetail;
-        $query = array( 'Genre' => "Short" );
+        $query = array( 'Genre' => "Romance, Comedy" );
         $cursor= $collection->find($query);
         $resultArr = iterator_to_array($cursor);
         return $resultArr;
