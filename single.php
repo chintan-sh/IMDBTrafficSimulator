@@ -1,4 +1,4 @@
-<?php include_once "/var/www/mdb/includes/common/constants.php";
+<?php include_once "/var/www/html/mdb/includes/common/constants.php";
 
 $loggedIn = false;
 if(isLoggedIn()){

@@ -36,9 +36,20 @@ class movieDAO
         $connObj = MongoClass::getInstance();
         $db = $connObj->movieData;
         $collection = $db->moviedetail;
-        $arrayObj = new ArrayObject();
-        $cursor = $collection->find();
-        $cursor->limit(15);
+        $query= array('Poster'=> array('$ne'=>"N/A"));
+        $cursor = $collection->find($query);
+        $cursor->limit(14);
+        $resultArray= iterator_to_array($cursor);
+        return ($resultArray);
+    }
+
+    function getSideMovies(){
+        $connObj = MongoClass::getInstance();
+        $db = $connObj->movieData;
+        $collection = $db->moviedetail;
+        $query= array('Poster'=> array('$ne'=>"N/A"));
+        $cursor = $collection->find($query);
+        $cursor->limit(7);
         $resultArray= iterator_to_array($cursor);
         return ($resultArray);
     }
