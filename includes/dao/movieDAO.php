@@ -6,17 +6,18 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once '/var/www/html/mdb/includes/common/constants.php';
-include $Sankalp_Phy_Path.'/includes/db/mongo.php';
+include_once '/var/www/mdb/includes/common/constants.php';
+include $PHYSICAL_PATH.'/includes/db/mongo.php';
 
-class movieDAO
-{
+class movieDAO{
+
     function getMoviesByGenre($genre){
-        $connObj=MongoClass::getInstance();
-        $db=$connObj->movieData;
-        $collection=$db->moviedetail;
-        $query = array( 'Genre' => $genre );
-        $cursor= $collection->find($query);
+        $db=MongoClass::getInstance();
+        $collection=$db->moviesDetail;
+        $like = new MongoRegex("/^".$genre."/i"); // like clause
+        $query = array( 'Genre' => $like , 'Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
+        $cursor= $collection->find($query); //$cursor->addOption( '$maxScan', 10 );
+        $cursor->limit(10);
         $resultArr = iterator_to_array($cursor);
         return $resultArr;
     }
