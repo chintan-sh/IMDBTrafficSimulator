@@ -6,18 +6,22 @@ if(isLoggedIn()){
 	$loggedIn = true;
 }
 
+//"Drama", , "Sci-Fi"
+
+$array = array("Crime", "Thriller", "Comedy", "Horror");
+$k = array_rand($array);
+$v = $array[$k];
+
 $movieObj = new movieDAO();
-$allMovies = $movieObj->getMoviesByGenre("Crime");
+$allMovies = $movieObj->getMoviesByGenre($v);
 $movies = array();
 foreach ($allMovies as $key=>$oneMovie ){
 	array_push($movies, $oneMovie);
 }
 
-echo "<pre>"; print_r($movies); echo "</pre>";
-
-exit();
-
-
+//echo "<pre>"; print_r($movies); echo "</pre>";
+//
+//exit();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -48,17 +52,17 @@ exit();
 			  <ul class="rslides" id="slider">
 				<li><img src="images/banner.jpg" class="img-responsive" alt=""/>
 					<div class="button">
-					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					  <a href="https://www.youtube.com/watch?v=2WhQcK-Zaok" target="_blank" class="hvr-shutter-out-horizontal">Watch Now</a>
 					</div>
 				</li>
 				<li><img src="images/banner1.jpg" class="img-responsive" alt=""/>
 					<div class="button">
-					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					  <a href="https://www.youtube.com/watch?v=pbI980iUb78" target="_blank" class="hvr-shutter-out-horizontal">Watch Now</a>
 					</div>
 				</li>
 				<li><img src="images/banner2.jpg" class="img-responsive" alt=""/>
 					<div class="button">
-					  <a href="#" class="hvr-shutter-out-horizontal">Watch Now</a>
+					  <a href="https://www.youtube.com/watch?v=mg2xtVYgQhI" target="_blank" class="hvr-shutter-out-horizontal">Watch Now</a>
 					</div>
 				</li>
 			  </ul>
@@ -97,7 +101,7 @@ exit();
 			  <div class="row_1">
 				  <div class="col-md-6 grid_4">
 					  <div class="grid_2">
-							<img src="<?php echo $movies[8]["Poster"]?>" height="166px" width="181px" class="img-responsive" alt=""/>
+							<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[8]["imdbID"]?>"><img src="<?php echo $movies[8]["Poster"]?>" height="166px" width="181px" class="img-responsive" alt=""/></a>
 							<div class="caption1">
 								<ul class="list_3">
 									<li><i class="icon5"> </i><p><?php echo $movies[8]["imdbVotes"]?></p></li>
@@ -107,13 +111,13 @@ exit();
 							</div>
 					   </div>
 					   <div class="grid_2 col_1">
-							<img src="<?php echo $movies[9]["Poster"]?>" height="166px" width="181px" class="img-responsive" alt=""/>
+						   <a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[9]["imdbID"]?>"><img src="<?php echo $movies[9]["Poster"]?>" height="166px" width="181px" class="img-responsive" alt=""/></a>
 							<div class="caption1">
 								<ul class="list_3">
 									<li><i class="icon5"> </i><p><?php echo $movies[9]["imdbVotes"]?></p></li>
 								</ul>
 								<i class="icon4"> </i>
-								<p class="m_3"><?php echo $movies[11]["Title"]?></p>
+								<p class="m_3"><?php echo $movies[9]["Title"]?></p>
 							</div>
 					   </div>
 				   </div>
@@ -127,85 +131,83 @@ exit();
 								<li>Release Date : &nbsp;<span class="m_4"><?php echo $movies[2]["Released"]?></span> </li>
 								<div class="clearfix"> </div>
 							</ul>
-							<div class="m_5"><a href="single.php"><img src="<?php echo $movies[2]["Poster"] ?>" class="img-responsive" alt=""/></a></div>
+							<div class="m_5"><a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[2]["imdbID"]?>"><img src="<?php echo $movies[2]["Poster"] ?>" class="img-responsive" alt=""/></a></div>
 					   </div>
 				   </div>
 				   <div class="clearfix"> </div>
 			   </div>
 			   <div class="row_2">
-			   	<a href="single.php"><img src="images/pic4.jpg" class="img-responsive" alt=""/></a>
+				   <a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[8]["imdbID"]?>"><img src="images/pic4.jpg" class="img-responsive" alt=""/></a>
 			   </div>
 			</div>
 			<div class="col-md-5 content_right">
 			 <div class="row_3">
 			  <div class="col-md-6 content_right-box">
-				  <a href="single.php">
-						<div class="grid_2">
-						<img src="<?php echo $movies[6]["Poster"] ?>" class="img-responsive" alt=""/>
+					<div class="grid_2">
+						<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[14]["imdbID"]?>"><img src="<?php echo $movies[14]["Poster"] ?>" class="img-responsive" alt=""/></a>
+						<div class="caption1">
+							<ul class="list_5">
+								<li><i class="icon5"> </i><p><?php echo $movies[14]["imdbVotes"] ?></p></li>
+							</ul>
+							<i class="icon4 icon6"> </i>
+							<p class="m_3"><?php echo $movies[14]["Title"] ?></p>
+						</div>
+					</div>
+			  </div>
+			   <div class="col-md-6 grid_5">
+					<div class="grid_2">
+						<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[13]["imdbID"]?>"><img src="<?php echo $movies[13]["Poster"]?>" class="img-responsive" alt=""/></a>
 						<div class="caption1">
 								<ul class="list_5">
-									<li><i class="icon5"> </i><p><?php echo $movies[6]["imdbVotes"] ?></p></li>
+									<li><i class="icon5"> </i><p>3,548</p></li>
 								</ul>
 								<i class="icon4 icon6"> </i>
-								<p class="m_3"><?php echo $movies[6]["Title"] ?></p>
+								<p class="m_3"><?php echo $movies[13]["Title"]?></p>
 						</div>
-						</div>
-			      </a>
-			  </div>
-			   <div class="col-md-6 grid_5"><a href="single.php">
-				<div class="grid_2">
-				<img src="images/pic7.jpg" class="img-responsive" alt=""/>
-				<div class="caption1">
-						<ul class="list_5">
-				    		<li><i class="icon5"> </i><p>3,548</p></li>
-				    	</ul>
-				    	<i class="icon4 icon6"> </i>
-				    	<p class="m_3">Guardians of the Galaxy</p>
-				</div>
-			    </div>
-			   </a></div>
+					</div>
+			   </div>
 			   <div class="clearfix"> </div>
 			   </div>
 			   <div class="video">
-			      <iframe width="100%" height="" src="https://www.youtube.com/embed/s1QeoSedWmM" frameborder="0" allowfullscreen></iframe>
+			      <iframe width="100%" height="" src="https://www.youtube.com/embed/GokKUqLcvD8" frameborder="0" allowfullscreen></iframe>
 			  </div>
 			  <div class="row_5">
 			  	<div class="col-md-6">
 					<div class="col_2">
 				   	    <ul class="list_4">
-			    			<li><i class="icon1"> </i><p>2,548</p></li>
-			    			<li><i class="icon2"> </i><p>215</p></li>
-			    			<li><i class="icon3"> </i><p>546</p></li>
+			    			<li><i class="icon1"> </i><p><?php echo $movies[5]["imdbVotes"]?></p></li>
+			    			<li><i class="icon2"> </i><p><?php echo(rand(10,100)); ?></p></li>
+			    			<li><i class="icon3"> </i><p>513</p></li>
 			    			<li>Rating : &nbsp;&nbsp;<p><img src="images/rating1.png" alt=""></p></li>
 			    			<div class="clearfix"> </div>
 			    		</ul>
 			    		
 				   </div>
 			   </div>
-			   <div class="col-md-6 m_6"><a href="single.php">
-				  <img src="images/pic8.jpg" class="img-responsive" alt=""/>
-			   </a></div>
+			   <div class="col-md-6 m_6">
+					   <a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[5]["imdbID"]?>"><img src="<?php echo $movies[5]["Poster"]?>" class="img-responsive" alt=""/></a>
+			   </div>
 			  </div>
 			</div>
 			<div class="col-md-2 grid_6">
-				<div class="m_7"><a href="single.php"><img src="images/pic9.jpg" class="img-responsive" alt=""/></a></div>
+				<div class="m_7"><a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[11]["imdbID"]?>"><img src="<?php echo $movies[11]["Poster"]?>" class="img-responsive" alt=""/></a></div>
 				<div class="caption1">
 						<ul class="list_5">
-				    		<li><i class="icon5"> </i><p>3,548</p></li>
+				    		<li><i class="icon5"> </i><p><?php echo $movies[11]["imdbVotes"]?></p></li>
 				    	</ul>
 				    	<i class="icon4 icon6"> </i>
-				    	<p class="m_3">Guardians of the Galaxy</p>
+				    	<p class="m_3"><?php echo $movies[11]["Title"]?></p>
 				</div>
 				<div class="col_2 col_3">
 				   	    <ul class="list_4">
-			    			<li><i class="icon1"> </i><p>2,548</p></li>
-			    			<li><i class="icon2"> </i><p>215</p></li>
-			    			<li><i class="icon3"> </i><p>546</p></li>
+			    			<li><i class="icon1"> </i><p><?php echo $movies[12]["imdbVotes"]?></p></li>
+			    			<li><i class="icon2"> </i><p><?php echo(rand(10,100)); ?></p></li>
+			    			<li><i class="icon3"> </i><p>1123</p></li>
 			    			<li>Rating : &nbsp;&nbsp;<p><img src="images/rating1.png" alt=""></p></li>
-			    			<li>Release : &nbsp;<span class="m_4">Mar 15, 2015</span> </li>
+			    			<li>Release : &nbsp;<span class="m_4"><?php echo $movies[12]["Released"]?></span> </li>
 			    			<div class="clearfix"> </div>
 			    		</ul>
-			    		<div class="m_8"><a href="single.php"><img src="images/pic10.jpg" class="img-responsive" alt=""/></a></div>
+			    		<div class="m_8"><a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[12]["imdbID"]?>"><img src="<?php echo $movies[12]["Poster"]?>" class="img-responsive" alt=""/></a></div>
 			    </div>
 			</div>
 			<div class="clearfix"> </div>

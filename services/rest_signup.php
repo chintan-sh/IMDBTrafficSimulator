@@ -25,7 +25,7 @@ $preferences = rtrim($preferences, ",");
 
 $mysqlObj = new UserDAO();
 $result = $mysqlObj->create_new_user($name, $username, $password, $email, $preferences);
-if($result){
+if($result > 0){
     $_SESSION["name"] = $name;
     $_SESSION["preferences"] = $preferences;
     $_SESSION["username"] = $username;

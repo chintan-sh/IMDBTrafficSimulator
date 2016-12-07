@@ -3,6 +3,8 @@
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
+	header("Location: ". $STATIC_URL ."index.php");
+	die();
 }
 
 ?>

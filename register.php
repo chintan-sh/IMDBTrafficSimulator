@@ -3,6 +3,8 @@
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
+	header("Location: ". $STATIC_URL ."index.php");
+	die();
 }
 
 ?>
@@ -35,10 +37,14 @@ if(isLoggedIn()){
 						 <div>
 							<span>Preferences<label>*</label></span>
 							 <select id="preferences" name="preferences[]" multiple required="required">
-								 <option value="crime">Crime</option>
-								 <option value="thriller">Thriller</option>
-								 <option value="drama">Drama</option>
-								 <option value="comedy">Comedy</option>
+								 <option value="Crime">Crime</option>
+								 <option value="Thriller">Thriller</option>
+								 <option value="Comedy">Comedy</option>
+								 <option value="Documentary">Documentary</option>
+								 <option value="History">History</option>
+								 <option value="Musical">Musical</option>
+								 <option value="Romance">Romance</option>
+								 <option value="Horror">Horror</option>
 							 </select>
 						 </div>
                          <div class="clearfix"> </div>
