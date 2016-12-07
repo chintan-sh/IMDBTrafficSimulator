@@ -1,4 +1,4 @@
-<?php include_once "/var/www/html/mdb/includes/common/constants.php";
+<?php include_once "/var/www/mdb/includes/common/constants.php";
 include $PHYSICAL_PATH.'/includes/dao/movieDAO.php';
 
 $loggedIn = false;
@@ -13,6 +13,7 @@ foreach($movieDetails as $m){
 	$movieList= $m;
 }
 $randomMovieList= $movieDao->getSideMovies();
+
 
 ?>
 <!DOCTYPE HTML>

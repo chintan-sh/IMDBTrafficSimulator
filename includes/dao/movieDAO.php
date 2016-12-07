@@ -22,6 +22,18 @@ class movieDAO
         return $resultArr;
     }
 
+    function getRecommendation($preference){
+        $db=MongoClass::getInstance();
+        $collection=$db->moviesDetail;
+        $like = new MongoRegex("/^".$preference."/i"); // like clause
+        $query = array( 'Genre' => $like , 'Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
+        $cursor= $collection->find($query); //$cursor->addOption( '$maxScan', 10 );//$cursor= $db->command(array("distinct"=>"moviesDetail",  "key" => "imdbID", $query));
+        $cursor->limit(5);
+        $cursor->skip(25);
+        $resultArr = iterator_to_array($cursor);
+        return $resultArr;
+    }
+
     function getMovieById($id){
         $connObj=MongoClass::getInstance();
         $collection=$connObj->moviesDetail;
@@ -44,7 +56,7 @@ class movieDAO
     function getRandomMovies(){
         $connObj = MongoClass::getInstance();
         $collection=$connObj->moviesDetail;
-        $query= array('Poster'=> array('$ne'=>"N/A"));
+        $query = array('Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor = $collection->find($query);
         $cursor->limit(14);
         $resultArray= iterator_to_array($cursor);
@@ -54,9 +66,10 @@ class movieDAO
     function getSideMovies(){
         $connObj = MongoClass::getInstance();
         $collection=$connObj->moviesDetail;
-        $query= array('Poster'=> array('$ne'=>"N/A"));
+        $query = array('Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor = $collection->find($query);
         $cursor->limit(7);
+        $cursor->skip(15);
         $resultArray= iterator_to_array($cursor);
         return ($resultArray);
     }
