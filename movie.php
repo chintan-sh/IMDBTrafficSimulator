@@ -5,17 +5,17 @@ $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
 }
-
 $movieDao= new movieDAO();
 $moviesList= $movieDao->getRandomMovies();
 $sideMoviesList= $movieDao->getSideMovies();
+
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-<!-- Header Starts -->
-<?php include_once $PHYSICAL_PATH."includes/common/header.php"; ?>
-<!-- Header Ends -->
+	<!-- Header Starts -->
+	<?php include_once $PHYSICAL_PATH."includes/common/header.php"; ?>
+	<!-- Header Ends -->
 </head>
 <body>
 <div class="container">
@@ -31,7 +31,7 @@ $sideMoviesList= $movieDao->getSideMovies();
 					foreach ($moviesList as $m){
 						echo "<div style='height: 240px;' class='movie movie-test movie-test-dark movie-test-left'>
 								<div style='height:240px;' class='movie__images'>
-									<a href='single.php' class='movie-beta__link'>
+									<a href='single.php?id=".$m['imdbID']."' class='movie-beta__link'></a>
 										<img style='height:230px; width:170px;' alt='' src='".$m['Poster']."' class='img-responsive' alt=''/>
 									</a>
 								</div>
@@ -139,7 +139,6 @@ $sideMoviesList= $movieDao->getSideMovies();
 							}
 						}
 					});
-
 				});
 			</script>
 		</div>
