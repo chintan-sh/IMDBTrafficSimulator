@@ -13,6 +13,7 @@ $username= $_POST["username"];
 $password= $_POST["password"];
 $email = $_POST["email"];
 
+$preferences = "";
 if(count($_POST['preferences']) > 1){
     foreach ($_POST['preferences'] as $one_preference) {
         $preferences .= $one_preference . ",";
