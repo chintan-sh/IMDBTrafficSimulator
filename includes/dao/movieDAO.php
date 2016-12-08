@@ -29,7 +29,7 @@ class movieDAO
         $query = array( 'Genre' => $like , 'Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor= $collection->find($query); //$cursor->addOption( '$maxScan', 10 );//$cursor= $db->command(array("distinct"=>"moviesDetail",  "key" => "imdbID", $query));
         $cursor->limit(5);
-        $cursor->skip(25);
+        $cursor->skip(15);
         $resultArr = iterator_to_array($cursor);
         return $resultArr;
     }
@@ -68,7 +68,7 @@ class movieDAO
         $collection=$connObj->moviesDetail;
         $query = array('Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor = $collection->find($query);
-        $cursor->limit(7);
+        $cursor->limit(4);
         $cursor->skip(15);
         $resultArray= iterator_to_array($cursor);
         return ($resultArray);

@@ -5,7 +5,20 @@ $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
 }
+
+$genre = $_GET["g"];
+
 $movieDao= new movieDAO();
+// $moviesList = "";
+//if(trim($genre)!=""){
+//	$moviesList = $movieDao->getMoviesByGenre($genre);
+//}
+
+//if(empty($moviesList) || trim($genre) == "" ){
+//	$moviesList= $movieDao->getRandomMovies();
+//	echo "<pre>"; print_r($moviesList); echo "</pre>";
+//}
+
 $moviesList= $movieDao->getRandomMovies();
 $sideMoviesList= $movieDao->getSideMovies();
 
@@ -17,12 +30,14 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
 	}
 
 	foreach ($preferences as $singlePreference){
+		//echo $singlePreference;
 		$allMovies = $movieDao->getRecommendation($singlePreference);
 		foreach ($allMovies as $key=>$oneMovie ){
 			array_push($movies, $oneMovie);
 		}
 	}
 }
+
 
 //
 //echo "<pre>"; print_r($movies); echo "</pre>";
@@ -99,9 +114,9 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
 				<?php if (isset($_SESSION['preferences'])){ ?>
 					<?php $count = 0; ?>
 					<?php foreach ($movies as $key=>$oneMovie ){ ?>
-						<?php  if ($count > 4){ ?>
+						<?php  if ($count < 5){ ?>
 							<li>
-								<div style="height:240px; width:250px"><img src="<?php echo $oneMovie['Poster'] ?>"   style="overflow:hidden;" class="img-responsive"/></div>
+								<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $oneMovie["imdbID"]?>"><div style="height:240px; width:250px"><img src="<?php echo $oneMovie['Poster'] ?>"   style="overflow:hidden;" class="img-responsive"/></div></a>
 								<!--								<div class="grid-flex">-->
 								<!--									<a href="--><?php //echo $STATIC_URL?><!--single.php?id=--><?php //echo $oneMovie["imdbID"]?><!--">--><?php //echo $oneMovie['Title'] ?><!--</a>-->
 								<!--									<p>--><?php //echo $oneMovie['Released'] ?><!-- | --><?php //echo $oneMovie['Runtime'] ?><!--</p>-->
