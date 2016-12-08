@@ -15,7 +15,7 @@ class movieDAO
         $db=MongoClass::getInstance();
         $collection=$db->moviesDetail;
         $like = new MongoRegex("/^".$genre."/i"); // like clause
-        $query = array( 'Genre' => $like , 'Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
+        $query = array( 'Genre' => $like ,'imdbRating' => array('$gte' => "4"), 'Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor= $collection->find($query); //$cursor->addOption( '$maxScan', 10 );//$cursor= $db->command(array("distinct"=>"moviesDetail",  "key" => "imdbID", $query));
         $cursor->limit(15);
         $resultArr = iterator_to_array($cursor);
