@@ -16,7 +16,7 @@ function isLoggedIn(){
     }
 }
 
-$PHYSICAL_PATH = "/var/www/html/mdb/";
-$STATIC_URL = "http://localhost/mdb";
+$PHYSICAL_PATH = $_SERVER['DOCUMENT_ROOT'] . "/mdb/";
+$STATIC_URL = "http://localhost/mdb/";
 
 ?>

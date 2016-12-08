@@ -1,5 +1,5 @@
 <?php
-include_once "/var/www/mdb/includes/common/constants.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
 include_once $PHYSICAL_PATH . "includes/db/mysql.php";
 
 /**

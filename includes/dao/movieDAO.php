@@ -6,7 +6,7 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once '/var/www/mdb/includes/common/constants.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
 include $PHYSICAL_PATH.'/includes/db/mongo.php';
 
 class movieDAO

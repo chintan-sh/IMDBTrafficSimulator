@@ -1,6 +1,7 @@
-<?php include_once "/var/www/mdb/includes/common/constants.php";
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
 include_once $PHYSICAL_PATH. "includes/dao/movieDAO.php";
 
+//echo $_SERVER['DOCUMENT_ROOT'];
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
