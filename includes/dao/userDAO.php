@@ -14,7 +14,7 @@ class UserDAO{
     public function create_new_user($name, $username, $password, $email, $preferences){
         $db = Mysql::getInstance();
         $check_if_exists =  $this->check_if_user_exists($username);
-        if($check_if_exists < 1){//echo "INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "'";
+        if($check_if_exists < 1){ //echo "INSERT INTO userdb.credential (c_username, c_password) VALUES ('" . $username . "','" . $password . "'";
             $result = $db->query("
                                     INSERT INTO 
                                     userdb.credential (c_name, c_username, c_password, c_email, c_preferences )
@@ -27,7 +27,10 @@ class UserDAO{
                                     '" . $preferences . "'
                                     )
                                 ");
-            return 1;
+
+            if($result){
+                return 1;
+            }
         }
         return 0;
     }
