@@ -9,10 +9,10 @@ class Mysql{
     // Store the single instance of Database
     private static $m_pInstance;
 
-    private $db_host='localhost';
-    private $db_user = 'root';
-    private $db_pass = 'password';
-    private $db_name = 'userdb';
+    private $db_host='gs-db-instance1-cluster-1.cluster-c0g55r1qqyg0.us-west-2.rds.amazonaws.com';
+    private $db_user = 'admin';
+    private $db_pass = 'admin';
+    private $db_name = 'sampledb';
     public $conn = '';
 
     // Private constructor to limit object instantiation to within the class
