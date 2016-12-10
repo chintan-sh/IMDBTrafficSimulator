@@ -53,7 +53,7 @@ if(isLoggedIn()){
 <!-- Footer Ends -->
 
 <!-- Javascript Goes Here -->
-<script type="application/javascript" src="js/ajax.js"></script>
+<script type="application/javascript" src="<?php echo $CDN_PATH?>js/ajax.js"></script>
 <script>
 	$(document).ready(function(){
 		$('#loginForm').submit(function(e){

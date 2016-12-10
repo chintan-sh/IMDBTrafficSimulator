@@ -1,5 +1,5 @@
 <div class="header_top">
-    <div class="col-sm-3 logo"><a href="index.php"><img src="images/logo.png" alt=""/></a></div>
+    <div class="col-sm-3 logo"><a href="index.php"><img src="<?php echo $CDN_PATH?>images/logo.png" alt=""/></a></div>
     <div class="col-sm-6 nav">
         <ul>
             <!--<li> <span class="simptip-position-bottom simptip-movable" data-tooltip="comic"><a href="movie.php"> </a></span></li>
@@ -13,7 +13,7 @@
     <div class="col-sm-3 header_right">
         <ul class="header_right_box">
             <?php if($loggedIn){ ?>
-                <li><img src="images/p1.png" alt=""/></li>
+                <li><img src="<?php echo $CDN_PATH?>images/p1.png" alt=""/></li>
                 <li><p><a href="login.php"><?php echo ucfirst($_SESSION["name"]) ?> </a> | <a href="logout.php">Logout</a></p></li>
                 <!--<li class="last"><i class="edit"> </i></li>-->
             <?php }else{ ?>

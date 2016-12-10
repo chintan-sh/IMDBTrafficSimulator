@@ -10,7 +10,7 @@
 		<div class="gp-container">
             <div class="footer-widget footer-1">
             	<div class="wpb_wrapper">
-					<img src="images/f_logo.png" alt=""/>
+					<img src="<?php echo $CDN_PATH?>images/f_logo.png" alt=""/>
 				</div>
 	          <br>
 	          <p>With over 1500* movies and TV seasons, the Movie Store offers the best online discovery database of movies and TV shows available. </p>
