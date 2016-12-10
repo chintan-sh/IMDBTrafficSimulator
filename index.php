@@ -89,10 +89,10 @@ foreach ($allMovies as $key=>$oneMovie ){
       	<div class="box_1">
 			 <h1 class="m_2">Featured Movies</h1>
 			 <div class="search">
-				<form>
-					<input type="text" value="Search..." onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-					<input type="submit" value="">
-				</form>
+				 <form action="listing.php">
+					 <input type="text" name="searchbox" value="Search..." onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+					 <input type="submit" value="">
+				 </form>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
