@@ -16,7 +16,9 @@ function isLoggedIn(){
     }
 }
 
+$IP_ADDR = "localhost";
 $PHYSICAL_PATH = $_SERVER['DOCUMENT_ROOT'] . "/mdb/";
-$STATIC_URL = "http://localhost/mdb/";
+$STATIC_URL = "http://".$IP_ADDR."/mdb/";
+$CDN_PATH = "http://d22hyw0m24nmr8.cloudfront.net/"
 
 ?>

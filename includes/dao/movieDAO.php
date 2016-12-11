@@ -6,7 +6,7 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once $_SERVER['DOCUMENT_ROOT'] . "mdb/includes/common/constants.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
 include $PHYSICAL_PATH.'/includes/db/mongo.php';
 include $PHYSICAL_PATH.'/services/fpdf/fpdf.php';
 require $PHYSICAL_PATH. '/includes/dao/s3DAO.php';
@@ -112,8 +112,8 @@ class movieDAO
             $pdf->Cell(200, 10, $item['Rated'], 100);
             $pdf->Ln();
         }
-        $config = require( $_SERVER['DOCUMENT_ROOT'].'mdb/includes/common/s3_config.php');
-        $filename= $_SERVER['DOCUMENT_ROOT']."mdb/uploads/test.pdf";
+        $config = require( $_SERVER['DOCUMENT_ROOT'].'/mdb/includes/common/s3_config.php');
+        $filename= $_SERVER['DOCUMENT_ROOT']."/mdb/uploads/test.pdf";
         $pdf->Output($filename,"F");
         $bucketName= "sudowarlordsbucket";
         $s3= new S3($config['key'],$config['secret']);
