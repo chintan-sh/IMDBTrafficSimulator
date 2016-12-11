@@ -64,7 +64,7 @@ if(isLoggedIn()){
 
 
 	function authenticate() {
-		var post_url = "http://localhost/mdb/services/rest_login.php";
+		var post_url = "<?php echo $STATIC_URL ?>/services/rest_login.php";
 		var post_data_url = "username=" + $('#username').val() + "&password=" + $('#password').val();
 		postData(post_url, post_data_url, authenticateCallback, true);
 	}
