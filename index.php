@@ -188,9 +188,9 @@ foreach ($allMovies as $key=>$oneMovie ){
 			</div>
 			<div class="col-md-2 grid_6">
 				<div class="m_7">
-					<!--<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[11]["imdbID"]?>">-->
-						<img src="<?php echo $movies[11]["Poster"]?>" class="img-responsive" alt="<?php echo $movies[11]["Poster"]?>"/>
-					<!--</a>-->
+					<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[11]["imdbID"]?>">
+						<img src="<?php echo $movies[11]["Poster"]?>" class="img-responsive" alt="<?php echo $movies[11]["Title"]?>"/>
+					</a>
 				</div>
 				<div class="caption1">
 						<ul class="list_5">

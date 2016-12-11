@@ -2,7 +2,6 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
 include_once $PHYSICAL_PATH. "includes/dao/movieDAO.php";
 
-$loggedIn = false;
 if(isLoggedIn()){
     $loggedIn = true;
 }
@@ -10,13 +9,8 @@ if(isLoggedIn()){
 $searchString= $_GET['searchbox'];
 
 $movieDao= new movieDAO();
-
-$moviesList= $movieDao->getMovieByName($searchString);
-$sideMoviesList = $movieDao->getSideMovies();
-$movieCount= count($moviesList);
-if($movieCount<1){
-    $similarMoviesList= $movieDao->getMoviesBySearchString($searchString);
-}
+$similarMoviesList= $movieDao->getMoviesBySearchString($searchString);
+$movieCount= count($similarMoviesList);
 
 $movies = array();
 if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
@@ -33,6 +27,7 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
         }
     }
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -48,10 +43,10 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
         <?php include_once $PHYSICAL_PATH."includes/common/navigation.php"; ?>
         <div class="content">
             <?php
-                if($movieCount<1)
-                    echo "<h1 class='m_3'>Movie could not be found, but here are some similar suggestions:</h1>";
-                else
-                    echo "<h1 class='m_3'>Your searched movie:</h1>";
+            if($movieCount<1)
+                echo "<h1 class='m_3'>Sorry! Movie could not be found!</h1>";
+            else
+                echo "<h1 class='m_3'>Your searched results:</h1>";
             ?>
             <div class="movie_top">
                 <div class="col-md-9 movie_box">
@@ -59,30 +54,12 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
 
                     <?php
                     if($movieCount<1){
-                        foreach ($similarMoviesList as $m){
-                            echo "<div style='height: 240px;' class='movie movie-test movie-test-dark movie-test-left'>
-								<div style='height:240px;' class='movie__images'>
-									<a href='single.php?id=".$m['imdbID']."' class='movie-beta__link'></a>
-										<img style='height:230px; width:170px;' alt='' src='".$m['Poster']."' class='img-responsive' alt=''/>
-									</a>
-								</div>
-								<div class='movie__info'>
-									<a href='single.php' class='movie__title'>". $m['Title']. "</a>
-									<p class='movie__time'>". $m['Runtime']. "</p>
-									<p class='movie__option'>".$m['Genre']."</p>
-										<ul class='list_6'>
-											<li><i class='icon1'> </i><p>".$m['imdbVotes']."</p></li>
-											<li><i class='icon3'> </i><p>".rand(100,10000)."</p></li>
-											<li>Rating : &nbsp;&nbsp;<p>". $m['imdbRating'] ."</p></li>
-											<div class='clearfix'> </div>
-										</ul>
-								</div>
-								<div class='clearfix'> </div>
-                              </div>";
-                        }
+                        echo " <div class='movie movie-test movie-test-dark movie-test-left'>	
+								      <div class='clearfix'> </div>
+                                   </div>";
                     }
                     else{
-                        foreach ($moviesList as $m){
+                        foreach ($similarMoviesList as $m){
                             echo "<div style='height: 240px;' class='movie movie-test movie-test-dark movie-test-left'>
 								<div style='height:240px;' class='movie__images'>
 									<a href='single.php?id=".$m['imdbID']."' class='movie-beta__link'></a>
@@ -129,7 +106,7 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
                 <div class="clearfix"> </div>
             </div>
             <h3 class="recent">Recommended for you</h3>
-            <script type="text/javascript" src="<?php echo $CDN_PATH?>js/jquery.flexisel.js"></script>
+            <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 
             <ul id="flexiselDemo1">
                 <?php if (isset($_SESSION['preferences'])){ ?>
@@ -146,11 +123,11 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
                         <?php } $count++ ; ?>
                     <?php } ?>
                 <?php }else{ ?>
-                    <li><img src="<?php echo $CDN_PATH?>images/1.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Syenergy 2mm</a><p>22.10.2014 | 14:40</p></div></li>
-                    <li><img src="<?php echo $CDN_PATH?>images/2.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Surf Yoke</a><p>22.01.2015 | 14:40</p></div></li>
-                    <li><img src="<?php echo $CDN_PATH?>images/3.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Salty Daiz</a><p>22.10.2013 | 14:40</p></div></li>
-                    <li><img src="<?php echo $CDN_PATH?>images/4.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Cheeky Zane</a><p>22.10.2014 | 14:40</p></div></li>
-                    <li><img src="<?php echo $CDN_PATH?>images/5.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Synergy</a><p>22.10.2013 | 14:40</p></div></li>
+                    <li><img src="images/1.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Syenergy 2mm</a><p>22.10.2014 | 14:40</p></div></li>
+                    <li><img src="images/2.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Surf Yoke</a><p>22.01.2015 | 14:40</p></div></li>
+                    <li><img src="images/3.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Salty Daiz</a><p>22.10.2013 | 14:40</p></div></li>
+                    <li><img src="images/4.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Cheeky Zane</a><p>22.10.2014 | 14:40</p></div></li>
+                    <li><img src="images/5.jpg" class="img-responsive"/><div class="grid-flex"><a href="#">Synergy</a><p>22.10.2013 | 14:40</p></div></li>
                 <?php } ?>
             </ul>
             <script type="text/javascript">

@@ -72,7 +72,7 @@ if(isLoggedIn()){
 	function authenticateCallback(data){
 		console.log("Response '"+$.trim(data)+"'");
 		if($.trim(data) == "success"){
-			window.location = "movie.php";
+			window.location = "profile.php";
 		}else {
 			$(".errorMsg").show();
 		}

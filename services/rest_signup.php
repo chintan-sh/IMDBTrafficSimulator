@@ -32,7 +32,7 @@ if($result > 0){
     $_SESSION["username"] = $username;
     $_SESSION["email"] = $email;
     $_SESSION["is_logged"] = true;
-    header("Location: " . $STATIC_URL . "movie.php");
+    header("Location: " . $STATIC_URL . "profile.php");
     die();
 }
 
