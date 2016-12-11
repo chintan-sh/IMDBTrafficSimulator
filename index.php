@@ -187,7 +187,11 @@ foreach ($allMovies as $key=>$oneMovie ){
 			  </div>
 			</div>
 			<div class="col-md-2 grid_6">
-				<div class="m_7"><a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[11]["imdbID"]?>"><img src="<?php echo $movies[11]["Poster"]?>" class="img-responsive" alt=""/></a></div>
+				<div class="m_7">
+					<!--<a href="<?php echo $STATIC_URL?>single.php?id=<?php echo $movies[11]["imdbID"]?>">-->
+						<img src="<?php echo $movies[11]["Poster"]?>" class="img-responsive" alt="<?php echo $movies[11]["Poster"]?>"/>
+					<!--</a>-->
+				</div>
 				<div class="caption1">
 						<ul class="list_5">
 				    		<li><i class="icon5"> </i><p><?php echo $movies[11]["imdbVotes"]?></p></li>
@@ -200,7 +204,7 @@ foreach ($allMovies as $key=>$oneMovie ){
 			    			<li><i class="icon1"> </i><p><?php echo $movies[12]["imdbVotes"]?></p></li>
 			    			<li><i class="icon2"> </i><p><?php echo(rand(10,100)); ?></p></li>
 			    			<li><i class="icon3"> </i><p>1123</p></li>
-			    			<li>Rating : &nbsp;&nbsp;<p><img src="<?php echo $CDN_PATH?>images/rating1.png" alt=""></p></li>
+			    			<li>Rating : &nbsp;&nbsp;<p><img src="<?php echo $CDN_PATH?>	images/rating1.png" alt=""></p></li>
 			    			<li>Release : &nbsp;<span class="m_4"><?php echo $movies[12]["Released"]?></span> </li>
 			    			<div class="clearfix"> </div>
 			    		</ul>
