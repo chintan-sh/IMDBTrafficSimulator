@@ -5,8 +5,7 @@
  * Date: 11/10/16
  * Time: 11:57 PM
  */
-include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/vendor/autoload.php';
+include $_SERVER['DOCUMENT_ROOT'].'/mdb/vendor/autoload.php';
 
 class MongoClass{
     private static $mongoConnection;
