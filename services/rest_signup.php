@@ -8,18 +8,18 @@ include_once $PHYSICAL_PATH . "includes/dao/userDAO.php";
  * Time: 11:01 PM
  */
 
-$name = $_POST["name"];
-$username= $_POST["username"];
-$password= $_POST["password"];
-$email = $_POST["email"];
+$name = $_REQUEST["name"];
+$username= $_REQUEST["username"];
+$password= $_REQUEST["password"];
+$email = $_REQUEST["email"];
 
 $preferences = "";
-if(count($_POST['preferences']) > 1){
-    foreach ($_POST['preferences'] as $one_preference) {
+if(count($_REQUEST['preferences']) > 1){
+    foreach ($_REQUEST['preferences'] as $one_preference) {
         $preferences .= $one_preference . ",";
     }
 }else{
-    $preferences = $_POST['preferences'];
+    $preferences = $_REQUEST['preferences'];
 }
 
 $preferences = rtrim($preferences, ",");
