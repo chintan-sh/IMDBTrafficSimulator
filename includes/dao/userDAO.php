@@ -29,6 +29,7 @@ class UserDAO{
                                 ");
 
             if($result){
+                error_log("New user is about to created in Database : uname = " . $username);
                 return 1;
             }
         }
