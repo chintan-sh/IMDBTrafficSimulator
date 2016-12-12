@@ -6,7 +6,7 @@
  * Date: 11/10/16
  * Time: 11:14 PM
  */
-include_once $_SERVER['DOCUMENT_ROOT'] . "/mdb/includes/common/constants.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/includes/common/constants.php";
 include $PHYSICAL_PATH.'/includes/db/mongo.php';
 include $PHYSICAL_PATH.'/services/fpdf/fpdf.php';
 require $PHYSICAL_PATH. '/includes/dao/s3DAO.php';
