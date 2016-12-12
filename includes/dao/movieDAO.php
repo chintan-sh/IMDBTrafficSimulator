@@ -112,8 +112,8 @@ class movieDAO
             $pdf->Cell(200, 10, $item['Rated'], 100);
             $pdf->Ln();
         }
-        $config = require( $_SERVER['DOCUMENT_ROOT'].'/mdb/includes/common/s3_config.php');
-        $filename= $_SERVER['DOCUMENT_ROOT']."/mdb/uploads/test.pdf";
+        $config = require( $_SERVER['DOCUMENT_ROOT'].'/includes/common/s3_config.php');
+        $filename= $_SERVER['DOCUMENT_ROOT']."/uploads/test.pdf";
         $pdf->Output($filename,"F");
         $bucketName= "sudowarlordsbucket";
         $s3= new S3($config['key'],$config['secret']);
