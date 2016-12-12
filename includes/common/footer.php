@@ -34,10 +34,10 @@
 <!--					</ul>-->
 <!--		     </div>-->
 		     <div class="col_1_of_3 span_1_of_3">
-					<h3>Follow Us</h3>
+					<h3>Us on</h3>
 					<ul class="first">
 						<li><a href="https://github.com/nusudoers">GitHub</a></li>
-						<li><a href="https://s3.amazonaws.com/lowres.cartoonstock.com/computers-cloud_data-data_storage-technological_advancements-computer_skills-technical_advancements-mlyn2008_low.jpg">Team</a></li>
+						<li><a href="https://s3.amazonaws.com/lowres.cartoonstock.com/computers-cloud_data-data_storage-technological_advancements-computer_skills-technical_advancements-mlyn2008_low.jpg">1st Day</a></li>
 					</ul>
 					<div class="copy">
 				      <p>&copy; 2016 Created by <a href="http://www.northeastern.edu" target="_blank"> Sudoers</a></p>
