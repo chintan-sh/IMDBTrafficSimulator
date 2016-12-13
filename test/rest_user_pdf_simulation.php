@@ -18,9 +18,12 @@ if($result > 0){
     $pass_result = $mysqlObj->check_if_password_is_valid($username, $password);
     if($pass_result->num_rows > 0){
         $result = $pass_result->fetch_array(MYSQLI_ASSOC);
+        $_SESSION["name"] = $result["c_name"];
+        $_SESSION["username"] = $result["c_username"];
+        $_SESSION["preferences"] = $result["c_preferences"];
+        $_SESSION["email"] = $result["c_email"];
+        $_SESSION["is_logged"] = true;
         echo "---------------------> Login Successful";
-    }else{
-        echo "---------------------> Login Failed";
     }
 }else{
     echo "---------------------> Login Failed";
