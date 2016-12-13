@@ -39,6 +39,8 @@ foreach ($allMovies as $key=>$oneMovie ){
     });
 </script>
 </head>
+<!-- <?php echo "MY SERVER IP "  . $_SERVER['SERVER_ADDR'] ?>--->
+<!-- <?php echo "MY SERVER NAME "  . $_SERVER['SERVER_NAME'] ?>--->
 <body>
 <div class="container">
 	<div class="container_wrap">
