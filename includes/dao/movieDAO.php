@@ -113,11 +113,12 @@ class movieDAO
             $pdf->Ln();
         }
         $config = require( $_SERVER['DOCUMENT_ROOT'].'includes/common/s3_config.php');
-        $filename= $_SERVER['DOCUMENT_ROOT']."uploads/test.pdf";
+        $file = uniqid();
+        $filename= $_SERVER['DOCUMENT_ROOT']."uploads/".$file.".pdf";
         $pdf->Output($filename,"F");
         $bucketName= "sudowarlordsbucket";
         $s3= new S3($config['key'],$config['secret']);
-        $new_name= "user_report".time().'.pdf';
+        $new_name= "user_report_".$file.'.pdf';
         S3::putObject($s3->inputFile($filename, true), 'sudowarlordsbucket', $new_name, S3::ACL_PUBLIC_READ_WRITE, array(), array(), S3::STORAGE_CLASS_RRS);
         unlink($filename);
         return "https://s3-us-west-2.amazonaws.com/".$bucketName."/".$new_name;
