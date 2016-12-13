@@ -18,10 +18,8 @@ $movieObj= new movieDAO();
 
 for($i=0; $i<$count; $i++){
     $url=$movieObj->generatePDF();
-    echo " --------> " . $url;
+    echo " --------> " . $url . " <br>";
 }
-?>
-
 
 //$name = $_REQUEST["name"];
 //$username= $_REQUEST["username"];
@@ -38,3 +36,7 @@ for($i=0; $i<$count; $i++){
 //}
 //
 //$preferences = rtrim($preferences, ",");
+?>
+
+
+
