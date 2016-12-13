@@ -18,7 +18,7 @@ $movieObj= new movieDAO();
 
 for($i=0; $i<$count; $i++){
     $url=$movieObj->generatePDF();
-    echo " --------> " . $url . " <br>";
+    echo " --------> <a href='" . $url . "'> PDF " . $i . "</a> <br>";
 }
 
 //$name = $_REQUEST["name"];
