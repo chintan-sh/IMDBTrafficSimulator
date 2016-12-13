@@ -22,7 +22,7 @@ $url=$movieObj->generatePDF();
 <!-- Header Starts -->
 <?php include_once $PHYSICAL_PATH . "includes/common/header.php"; ?>
 <!-- Header Ends -->
-<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css' />
+<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css' />
 </head>
 <body>
 <div class="container">
