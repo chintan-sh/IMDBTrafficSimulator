@@ -1,11 +1,19 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . "/includes/common/constants.php";
 
 $loggedIn = false;
+$userInfo = "";
 if(isLoggedIn()){
 	$loggedIn = true;
+	$userInfo = $_COOKIE ;//$_SESSION;
 	header("Location: ". $STATIC_URL ."index.php");
 	die();
 }
+
+//if(isLoggedIn()){
+//	$loggedIn = true;
+//	header("Location: ". $STATIC_URL ."index.php");
+//	die();
+//}
 
 ?>
 <!DOCTYPE HTML>

@@ -2,9 +2,12 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . "/includes/common/constants.php";
 include_once $PHYSICAL_PATH. "includes/dao/movieDAO.php";
 
+$userInfo = "";
 if(isLoggedIn()){
     $loggedIn = true;
+    $userInfo = $_COOKIE ;//$_SESSION;
 }
+
 
 $searchString= $_GET['searchbox'];
 
@@ -13,8 +16,8 @@ $similarMoviesList= $movieDao->getMoviesBySearchString($searchString);
 $movieCount= count($similarMoviesList);
 
 $movies = array();
-if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
-    $preferences = explode(",",$_SESSION['preferences']);
+if (isset($userInfo['preferences']) && trim($userInfo['preferences']) != "" ) {
+    $preferences = explode(",",$userInfo['preferences']);
     if(count($preferences) < 2){
         $preferences[1] = 'Adventure';
     }
@@ -109,7 +112,7 @@ if (isset($_SESSION['preferences']) && trim($_SESSION['preferences']) != "" ) {
             <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 
             <ul id="flexiselDemo1">
-                <?php if (isset($_SESSION['preferences'])){ ?>
+                <?php if (isset($userInfo['preferences'])){ ?>
                     <?php $count = 0; ?>
                     <?php foreach ($movies as $key=>$oneMovie ){ ?>
                         <?php  if ($count < 5){ ?>

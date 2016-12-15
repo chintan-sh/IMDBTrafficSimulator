@@ -1,10 +1,11 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . "includes/common/constants.php";
 include_once $PHYSICAL_PATH. "includes/dao/movieDAO.php";
 
-
+$userInfo = '';
 $loggedIn = false;
 if(isLoggedIn()){
 	$loggedIn = true;
+	$userInfo = $_COOKIE ;//$userInfo;
 }
 
 //"Drama", , "Sci-Fi"

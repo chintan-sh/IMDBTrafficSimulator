@@ -11,7 +11,7 @@ if(!$loggedIn){
 	header("Location: " . $STATIC_URL . "index.php");
 }
 
-$userInfo = $_SESSION;
+$userInfo = $_COOKIE; //$_SESSION;
 $movieObj= new movieDAO();
 $url=$movieObj->generatePDF();
 ?>

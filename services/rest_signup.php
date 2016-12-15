@@ -27,11 +27,16 @@ $preferences = rtrim($preferences, ",");
 $mysqlObj = new UserDAO();
 $result = $mysqlObj->create_new_user($name, $username, $password, $email, $preferences);
 if($result > 0){
-    $_SESSION["name"] = $name;
-    $_SESSION["preferences"] = $preferences;
-    $_SESSION["username"] = $username;
-    $_SESSION["email"] = $email;
-    $_SESSION["is_logged"] = true;
+//    $_SESSION["name"] = $name;
+//    $_SESSION["preferences"] = $preferences;
+//    $_SESSION["username"] = $username;
+//    $_SESSION["email"] = $email;
+//    $_SESSION["is_logged"] = true;
+    setcookie("name", $name, time() + (86400 * 30), "/");
+    setcookie("username", $username, time() + (86400 * 30), "/");
+    setcookie("preferences", $preferences, time() + (86400 * 30), "/");
+    setcookie("email", $email, time() + (86400 * 30), "/");
+    setcookie("is_logged", true, time() + (86400 * 30), "/");
     header("Location: " . $STATIC_URL . "profile.php");
     die();
 }

@@ -29,9 +29,9 @@ function handleRequest(req, res) {
                 //request("https://54.186.164.236/test/rest_user_login_simulation.php?username=max"+i+"&password=max");
 		request.post('https://54.186.164.236/test/rest_user_login_simulation.php').form({username:'max'+i, password:'max' });
 		console.log("User loop index is " +  i);
-                for(var i=0; i<pdf_count; i++){
+                for(var j=0; j<pdf_count; j++){
                    request.post('https://54.186.164.236/test/rest_pdf_simulation.php');
-                   console.log("PDF loop index is " +  i);
+                   console.log("PDF loop index is " +  j);
                 }
             }
 
