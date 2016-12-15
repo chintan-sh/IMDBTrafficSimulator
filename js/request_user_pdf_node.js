@@ -27,10 +27,10 @@ function handleRequest(req, res) {
 	    var pdf_count = formattedData['pdf_count'];
 	    for(var i=0; i<count; i++){
                 //request("https://54.186.164.236/test/rest_user_login_simulation.php?username=max"+i+"&password=max");
-		request.post('https://54.186.164.236/test/rest_user_login_simulation.php').form({username:'max'+i, password:'max' });
+		request.post('http://54.186.164.236/test/rest_user_login_simulation.php').form({username:'max'+i, password:'max' });
 		console.log("User loop index is " +  i);
                 for(var j=0; j<pdf_count; j++){
-                   request.post('https://54.186.164.236/test/rest_pdf_simulation.php');
+                   request.post('http://54.186.164.236/test/rest_pdf_simulation.php');
                    console.log("PDF loop index is " +  j);
                 }
             }
