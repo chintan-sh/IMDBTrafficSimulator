@@ -14,7 +14,7 @@
         <ul class="header_right_box">
             <?php if($loggedIn){ ?>
                 <li><img height="35" width="35"  src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" alt=""/></li>
-                <li><p><a href="<?php echo $STATIC_URL ?>profile.php"><?php echo ucfirst($_SESSION["name"]) ?> </a> | <a href="logout.php">Logout</a></p></li>
+                <li><p><a href="<?php echo $STATIC_URL ?>profile.php"><?php echo ucfirst($_COOKIE["name"]) ?> </a> | <a href="logout.php">Logout</a></p></li>
                 <!--<li class="last"><i class="edit"> </i></li>-->
             <?php }else{ ?>
                 <li><p><a href="<?php echo $STATIC_URL ?>login.php">Login | Signup</a></p></li>
