@@ -82,7 +82,7 @@ class movieDAO
         $query = array('Poster' => array('$ne' => "N/A"), 'Poster' => array('$exists'=> true));
         $cursor = $collection->find($query);
         $cursor->skip($rand);
-        $cursor->limit(50);
+        $cursor->limit(200);
         $resultArray= iterator_to_array($cursor);
         return ($resultArray);
     }
