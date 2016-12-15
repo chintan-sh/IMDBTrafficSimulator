@@ -118,7 +118,7 @@ class movieDAO
         $pdf->Output($filename,"F");
         $bucketName= "sudowarlordsbucket";
         $s3= new S3($config['key'],$config['secret']);
-        $new_name= "user_report_".$file.'.pdf';
+        $new_name= "reports/user_report_".$file.'.pdf';
         S3::putObject($s3->inputFile($filename, true), 'sudowarlordsbucket', $new_name, S3::ACL_PUBLIC_READ_WRITE, array(), array(), S3::STORAGE_CLASS_RRS);
         unlink($filename);
         return "https://s3-us-west-2.amazonaws.com/".$bucketName."/".$new_name;
