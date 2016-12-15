@@ -9,18 +9,20 @@ include_once $PHYSICAL_PATH . "includes/dao/movieDAO.php";
  */
 
 
-$count  = trim($_REQUEST["count"]);
-if(!is_numeric($count)){
-    return "Invalid input :- Expected numeric value ";
-}
-
 $movieObj= new movieDAO();
+$url=$movieObj->generatePDF();
+echo " --------> <a href='" . $url . "'> PDF </a> <br>";
 
-for($i=0; $i<$count; $i++){
-    $url=$movieObj->generatePDF();
-    echo " --------> <a href='" . $url . "'> PDF " . $i . "</a> <br>";
-}
-
+//$count  = trim($_REQUEST["count"]);
+//if(!is_numeric($count) && array_key_exists('count', $_REQUEST)){
+//    return "Invalid input";
+//}else{
+//    $movieObj= new movieDAO();
+//    for($i=0; $i<$count; $i++){
+//        $url=$movieObj->generatePDF();
+//        echo " --------> <a href='" . $url . "'> PDF </a> <br>";
+//    }
+//}
 //$name = $_REQUEST["name"];
 //$username= $_REQUEST["username"];
 //$password= $_REQUEST["password"];
